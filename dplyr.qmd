@@ -1,0 +1,86 @@
+---
+title: "dplyr"
+author: "Stefan"
+format: html
+editor: visual
+---
+
+
+## setup
+
+```{r}
+adsl <- haven::read_sas("data/adsl.sas7bdat") %>% 
+  mutate_if(is_character, na_if, "")
+```
+
+we can have a look at the data using many different commands / functions, e.g. the `summary` function and the `head` function:
+
+```{r}
+head(adsl)
+summary(adsl)
+```
+
+## `dplyr`
+
+`dplyr` is a package which is part of the tidyverse. Dplyr helps us handle data. In R, we generally work with datasets. With `dplyr` we can easily select variables, filter specific rows, sort a dataset based on variable values and much more.
+
+`dplyr` is not strictly needed for any of that, everything can be done in base R. However, `dplyr` provides a framework to write readable code and a pipeline to work efficiently.
+
+The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example:
+
+```{r}
+vec <- 1:10
+
+# base:
+mean(vec)
+
+# dplyr:
+vec %>% mean()
+```
+
+The pipe operator let's us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector `vec`:
+
+```{r}
+# base:
+round(var(scale(vec, scale = FALSE)), digits = 2)
+
+# dplyr:
+vec %>% 
+  scale(scale = FALSE) %>% 
+  var() %>% 
+  round(digits = 2)
+```
+
+However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function.
+
+## Datawrangling 
+
+First input is always the data frame. 
+After that, there can be various inputs The select function takes column names as inputs.
+Compared to the base r syntax we do not have to write column names in quotation marks.
+
+dplyr syntax lets us specify the dataframe first, and afterwards we can refer
+to columns within a dataframe without the need to always reference the dataframe 
+of origin:
+
+
+## select
+```{r}
+# base
+adsl[c("STUDYID", "USUBJID", "AGE", "SEX", "RACE", "ARM")]
+
+# dplyr::select
+select(.data = adsl, STUDYID, USUBJID, AGE, SEX, RACE, ARM)
+
+# dplyr::select & pipe
+adsl %>% 
+  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM)
+```
+
+There are also some helper functions to use within the `select` function of `dplyr`.
+`starts_with()`
+`ends_with()`
+`num_range()`
+
+### filter
+
