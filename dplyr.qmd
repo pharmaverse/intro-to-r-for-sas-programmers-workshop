@@ -6,6 +6,7 @@ editor: visual
 ---
 
 ## setup
+
 ```{r}
 # remotes::install_github("https://github.com/pharmaverse/admiral")
 # library(admiral)
@@ -76,10 +77,7 @@ adsl %>%
   select(STUDYID, USUBJID, AGE, SEX, RACE, ARM)
 ```
 
-There are also some helper functions to use within the `select` function of `dplyr`. `starts_with()` `ends_with()` `num_range()`. 
-They allow us to select multiple columns sharing a naming structure. 
-`num_range()` let's us select consecutively numbered columns, e.g.:
-`num_range("example", 1:4)` would select the columns named: `r paste("example", 1:4, sep = "")`. 
+There are also some helper functions to use within the `select` function of `dplyr`. `starts_with()` `ends_with()` `num_range()`. They allow us to select multiple columns sharing a naming structure. `num_range()` let's us select consecutively numbered columns, e.g.: `num_range("example", 1:4)` would select the columns named: `r paste("example", 1:4, sep = "")`.
 
 We can try out `starts_with()`:
 
@@ -88,6 +86,7 @@ adsl %>%
   select(USUBJID, 
          starts_with("trt"))
 ```
+
 And `ends_with()`:
 
 ```{r}
@@ -97,9 +96,6 @@ adsl %>%
   select(USUBJID, 
          ends_with("DT"))
 ```
-
-
-
 
 ### filter
 
@@ -132,12 +128,10 @@ adsl %>%
 
 ::: {.callout-note appearance="simple"}
 ## pipe
-The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. 
-traditionally, we start a new line after every pipe operator. 
 
-In base R we saved each step in a separate dataframe. 
-Alternatively, we could have a very complicated and unreadable nested function call. 
-Using the pipe syntax we can avoid both. 
+The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. traditionally, we start a new line after every pipe operator.
+
+In base R we saved each step in a separate dataframe. Alternatively, we could have a very complicated and unreadable nested function call. Using the pipe syntax we can avoid both.
 :::
 
 Now we have a reduced data frame with female patients over 70.
@@ -147,6 +141,7 @@ summary(adsl_filter)
 ```
 
 This yielded the same result as the base R sequential code:
+
 ```{r}
 adsl %>% 
   select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
@@ -156,9 +151,7 @@ adsl %>%
   
 ```
 
-There is another inline operator which can be very useful within the filter function; `%in%`.
-With this operator, we can select rows based on a prespecified vector of values. 
-This can be useful if there are specified  values (e.g., specific `USUBJID`) which we would like to look at.
+There is another inline operator which can be very useful within the filter function; `%in%`. With this operator, we can select rows based on a prespecified vector of values. This can be useful if there are specified values (e.g., specific `USUBJID`) which we would like to look at.
 
 ```{r}
 # we randomly chose 4 USUBJID's:
@@ -174,12 +167,9 @@ adsl %>%
   filter(USUBJID %in% lookup_ids)
 ```
 
-
-
 ### arrange
-We can sort the dataframe with the arrange() function. 
-It allows the sorting based on multiple variables. 
-Note that the order of arranging variables determines the sorting hierarchy, so in this example we first order by `AGE` and 
+
+We can sort the dataframe with the arrange() function. It allows the sorting based on multiple variables. Note that the order of arranging variables determines the sorting hierarchy, so in this example we first order by `AGE` and
 
 ```{r}
  adsl %>% 
@@ -188,7 +178,9 @@ Note that the order of arranging variables determines the sorting hierarchy, so 
          SEX == "F") %>% 
   arrange(ARM, AGE)
 ```
+
 To sort by descending order, we can use the helper function `desc()` within `arrange()`:
+
 ```{r}
  adsl %>% 
   select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
@@ -197,3 +189,35 @@ To sort by descending order, we can use the helper function `desc()` within `arr
   arrange(ARM, desc(AGE))
 ```
 
+------------------------------------------------------------------------
+
+## Exercises
+
+Take the original `adsl` data-frame from above and:
+
+-   select the following variables:
+    -   USUBJID
+
+    -   SEX
+
+    -   COUNTRY
+
+    -   ARM
+
+    -   EOSSTT
+
+    -   AGE
+
+    -   AGEU
+
+    -   AGEGR1
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+adsl %>% 
+  select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE"))
+
+```
+
+-   Include only patients in the placebo arm who are 66, 77, 88, or 99 years old
