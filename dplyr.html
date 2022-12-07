@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stefan">
+
+<title>dplyr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="dplyr_files/libs/clipboard/clipboard.min.js"></script>
+<script src="dplyr_files/libs/quarto-html/quarto.js"></script>
+<script src="dplyr_files/libs/quarto-html/popper.min.js"></script>
+<script src="dplyr_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="dplyr_files/libs/quarto-html/anchor.min.js"></script>
+<link href="dplyr_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="dplyr_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="dplyr_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="dplyr_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="dplyr_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">dplyr</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Stefan </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("https://github.com/pharmaverse/admiral")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(admiral)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">"data/adsl.sas7bdat"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is_character, na_if, <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>we can have a look at the data using many different commands / functions, e.g.&nbsp;the <code>head()</code> function which gives us the first six observations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(adsl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 50
+  STUDYID  USUBJID SUBJID RFSTDTC RFENDTC RFXST…¹ RFXEN…² RFICDTC RFPEN…³ DTHDTC
+  &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; 
+1 CDISCPI… 01-701… 1015   2014-0… 2014-0… 2014-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+2 CDISCPI… 01-701… 1023   2012-0… 2012-0… 2012-0… 2012-0… &lt;NA&gt;    2013-0… &lt;NA&gt;  
+3 CDISCPI… 01-701… 1028   2013-0… 2014-0… 2013-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+4 CDISCPI… 01-701… 1033   2014-0… 2014-0… 2014-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+5 CDISCPI… 01-701… 1034   2014-0… 2014-1… 2014-0… 2014-1… &lt;NA&gt;    2014-1… &lt;NA&gt;  
+6 CDISCPI… 01-701… 1047   2013-0… 2013-0… 2013-0… 2013-0… &lt;NA&gt;    2013-0… &lt;NA&gt;  
+# … with 40 more variables: DTHFL &lt;chr&gt;, SITEID &lt;chr&gt;, AGE &lt;dbl&gt;, AGEU &lt;chr&gt;,
+#   SEX &lt;chr&gt;, RACE &lt;chr&gt;, ETHNIC &lt;chr&gt;, ARMCD &lt;chr&gt;, ARM &lt;chr&gt;,
+#   ACTARMCD &lt;chr&gt;, ACTARM &lt;chr&gt;, COUNTRY &lt;chr&gt;, DMDTC &lt;chr&gt;, DMDY &lt;dbl&gt;,
+#   TRT01P &lt;chr&gt;, TRT01A &lt;chr&gt;, TRTSDTM &lt;dttm&gt;, TRTSTMF &lt;chr&gt;, TRTEDTM &lt;dttm&gt;,
+#   TRTETMF &lt;chr&gt;, TRTSDT &lt;date&gt;, TRTEDT &lt;date&gt;, TRTDURD &lt;dbl&gt;, SCRFDT &lt;date&gt;,
+#   EOSDT &lt;date&gt;, EOSSTT &lt;chr&gt;, FRVDT &lt;date&gt;, RANDDT &lt;date&gt;, DTHDT &lt;date&gt;,
+#   DTHADY &lt;dbl&gt;, LDDTHELD &lt;dbl&gt;, LSTALVDT &lt;date&gt;, AGEGR1 &lt;dbl&gt;, SAFFL &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr"><code>dplyr</code></h2>
+<p><code>dplyr</code> is a package which is part of the tidyverse. Dplyr helps us handle data. In R, we generally work with datasets. With <code>dplyr</code> we can easily select variables, filter specific rows, sort a dataset based on variable values and much more.</p>
+<p><code>dplyr</code> is not strictly needed for any of that, everything can be done in base R. However, <code>dplyr</code> provides a framework to write readable code and a pipeline to work efficiently.</p>
+<p>The most crucial aspect of the <code>dplyr</code> pipeline is the pipe command (%&gt;%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let’s show a simple example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># base:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>vec <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.5</code></pre>
+</div>
+</div>
+<p>The pipe operator let’s us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector <code>vec</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">var</span>(<span class="fu">scale</span>(vec, <span class="at">scale =</span> <span class="cn">FALSE</span>)), <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,] 9.17</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>vec <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>(<span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">var</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,] 9.17</code></pre>
+</div>
+</div>
+<p>However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function.</p>
+</section>
+<section id="datawrangling" class="level2">
+<h2 class="anchored" data-anchor-id="datawrangling">Datawrangling</h2>
+<p>First input is always the data frame. After that, there can be various inputs The select function takes column names as inputs. Compared to the base r syntax we do not have to write column names in quotation marks.</p>
+<p>dplyr syntax lets us specify the dataframe first, and afterwards we can refer to columns within a dataframe without the need to always reference the dataframe of origin:</p>
+<section id="select" class="level3">
+<h3 class="anchored" data-anchor-id="select">select</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>adsl[<span class="fu">c</span>(<span class="st">"STUDYID"</span>, <span class="st">"USUBJID"</span>, <span class="st">"AGE"</span>, <span class="st">"SEX"</span>, <span class="st">"RACE"</span>, <span class="st">"ARM"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 306 × 6
+   STUDYID      USUBJID       AGE SEX   RACE  ARM                 
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;               
+ 1 CDISCPILOT01 01-701-1015    63 F     WHITE Placebo             
+ 2 CDISCPILOT01 01-701-1023    64 M     WHITE Placebo             
+ 3 CDISCPILOT01 01-701-1028    71 M     WHITE Xanomeline High Dose
+ 4 CDISCPILOT01 01-701-1033    74 M     WHITE Xanomeline Low Dose 
+ 5 CDISCPILOT01 01-701-1034    77 F     WHITE Xanomeline High Dose
+ 6 CDISCPILOT01 01-701-1047    85 F     WHITE Placebo             
+ 7 CDISCPILOT01 01-701-1057    59 F     WHITE Screen Failure      
+ 8 CDISCPILOT01 01-701-1097    68 M     WHITE Xanomeline Low Dose 
+ 9 CDISCPILOT01 01-701-1111    81 F     WHITE Xanomeline Low Dose 
+10 CDISCPILOT01 01-701-1115    84 M     WHITE Xanomeline Low Dose 
+# … with 296 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr::select</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>adsl_select <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> adsl, STUDYID, USUBJID, AGE, SEX, RACE, ARM)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr::select &amp; pipe</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, SEX, RACE, ARM)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 306 × 6
+   STUDYID      USUBJID       AGE SEX   RACE  ARM                 
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;               
+ 1 CDISCPILOT01 01-701-1015    63 F     WHITE Placebo             
+ 2 CDISCPILOT01 01-701-1023    64 M     WHITE Placebo             
+ 3 CDISCPILOT01 01-701-1028    71 M     WHITE Xanomeline High Dose
+ 4 CDISCPILOT01 01-701-1033    74 M     WHITE Xanomeline Low Dose 
+ 5 CDISCPILOT01 01-701-1034    77 F     WHITE Xanomeline High Dose
+ 6 CDISCPILOT01 01-701-1047    85 F     WHITE Placebo             
+ 7 CDISCPILOT01 01-701-1057    59 F     WHITE Screen Failure      
+ 8 CDISCPILOT01 01-701-1097    68 M     WHITE Xanomeline Low Dose 
+ 9 CDISCPILOT01 01-701-1111    81 F     WHITE Xanomeline Low Dose 
+10 CDISCPILOT01 01-701-1115    84 M     WHITE Xanomeline Low Dose 
+# … with 296 more rows</code></pre>
+</div>
+</div>
+<p>There are also some helper functions to use within the <code>select</code> function of <code>dplyr</code>. <code>starts_with()</code> <code>ends_with()</code> <code>num_range()</code>. They allow us to select multiple columns sharing a naming structure. <code>num_range()</code> let’s us select consecutively numbered columns, e.g.: <code>num_range("example", 1:4)</code> would select the columns named: example1, example2, example3, example4.</p>
+<p>We can try out <code>starts_with()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">"trt"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 306 × 10
+   USUBJID TRT01P TRT01A TRTSDTM             TRTSTMF TRTEDTM             TRTETMF
+   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;dttm&gt;              &lt;chr&gt;   &lt;dttm&gt;              &lt;chr&gt;  
+ 1 01-701… Place… Place… 2014-01-02 00:00:00 H       2014-07-02 23:59:59 H      
+ 2 01-701… Place… Place… 2012-08-05 00:00:00 H       2012-09-01 23:59:59 H      
+ 3 01-701… Xanom… Xanom… 2013-07-19 00:00:00 H       2014-01-14 23:59:59 H      
+ 4 01-701… Xanom… Xanom… 2014-03-18 00:00:00 H       2014-03-31 23:59:59 H      
+ 5 01-701… Xanom… Xanom… 2014-07-01 00:00:00 H       2014-12-30 23:59:59 H      
+ 6 01-701… Place… Place… 2013-02-12 00:00:00 H       2013-03-09 23:59:59 H      
+ 7 01-701… Scree… Scree… NA                  &lt;NA&gt;    NA                  &lt;NA&gt;   
+ 8 01-701… Xanom… Xanom… 2014-01-01 00:00:00 H       2014-07-09 23:59:59 H      
+ 9 01-701… Xanom… Xanom… 2012-09-07 00:00:00 H       2012-09-16 23:59:59 H      
+10 01-701… Xanom… Xanom… 2012-11-30 00:00:00 H       2013-01-23 23:59:59 H      
+# … with 296 more rows, and 3 more variables: TRTSDT &lt;date&gt;, TRTEDT &lt;date&gt;,
+#   TRTDURD &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>And <code>ends_with()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in this df, all variables that contain dates end with "DT". </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We can select them:</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>         <span class="fu">ends_with</span>(<span class="st">"DT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 306 × 9
+   USUBJID     TRTSDT     TRTEDT     SCRFDT     EOSDT      FRVDT      RANDDT    
+   &lt;chr&gt;       &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+ 1 01-701-1015 2014-01-02 2014-07-02 NA         2014-07-02 NA         2014-01-02
+ 2 01-701-1023 2012-08-05 2012-09-01 NA         2012-09-02 2013-02-18 2012-08-05
+ 3 01-701-1028 2013-07-19 2014-01-14 NA         2014-01-14 NA         2013-07-19
+ 4 01-701-1033 2014-03-18 2014-03-31 NA         2014-04-14 2014-09-15 2014-03-18
+ 5 01-701-1034 2014-07-01 2014-12-30 NA         2014-12-30 NA         2014-07-01
+ 6 01-701-1047 2013-02-12 2013-03-09 NA         2013-03-29 2013-07-28 2013-02-12
+ 7 01-701-1057 NA         NA         2013-12-20 NA         NA         NA        
+ 8 01-701-1097 2014-01-01 2014-07-09 NA         2014-07-09 NA         2014-01-01
+ 9 01-701-1111 2012-09-07 2012-09-16 NA         2012-09-17 2013-02-22 2012-09-07
+10 01-701-1115 2012-11-30 2013-01-23 NA         2013-01-23 2013-05-20 2012-11-30
+# … with 296 more rows, and 2 more variables: DTHDT &lt;date&gt;, LSTALVDT &lt;date&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter">filter</h3>
+<p>The <code>filter</code> function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame. Again, we supply the data-frame via the pipe operator. The logical vector is generally created within the function call and can use any of the following logic operators:</p>
+<pre><code>&lt;                less than
+&lt;=               less than or equal to
+&gt;                greater than
+&gt;=               greater than or equal to
+==               equal
+!=               not equal
+!x               not x (negation)
+x | y            x OR y
+x &amp; y            x AND y
+xor(x, y)        exclusive OR (either in x or y, but not in both)</code></pre>
+<p>Within <code>filter</code>, we can chain logical vectors by separating them with a comma (<code>,</code>). Lets have a look at women older than 70:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>adsl_filter <span class="ot">&lt;-</span> adsl_select[adsl_select<span class="sc">$</span>AGE<span class="sc">&gt;=</span><span class="dv">70</span> <span class="sc">&amp;</span> adsl_select<span class="sc">$</span>SEX<span class="sc">==</span><span class="st">"F"</span>, ]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># select, filter, &amp; pipe:</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, SEX, RACE, ARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 141 × 6
+   STUDYID      USUBJID       AGE SEX   RACE                      ARM           
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                     &lt;chr&gt;         
+ 1 CDISCPILOT01 01-701-1034    77 F     WHITE                     Xanomeline Hi…
+ 2 CDISCPILOT01 01-701-1047    85 F     WHITE                     Placebo       
+ 3 CDISCPILOT01 01-701-1111    81 F     WHITE                     Xanomeline Lo…
+ 4 CDISCPILOT01 01-701-1133    81 F     WHITE                     Xanomeline Hi…
+ 5 CDISCPILOT01 01-701-1146    75 F     WHITE                     Xanomeline Hi…
+ 6 CDISCPILOT01 01-701-1153    79 F     WHITE                     Placebo       
+ 7 CDISCPILOT01 01-701-1162    82 F     WHITE                     Screen Failure
+ 8 CDISCPILOT01 01-701-1181    79 F     WHITE                     Xanomeline Hi…
+ 9 CDISCPILOT01 01-701-1192    80 F     WHITE                     Xanomeline Lo…
+10 CDISCPILOT01 01-701-1203    81 F     BLACK OR AFRICAN AMERICAN Placebo       
+# … with 131 more rows</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+pipe
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The pipe operator let us chain multiple <code>dplyr</code> commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. traditionally, we start a new line after every pipe operator.</p>
+<p>In base R we saved each step in a separate dataframe. Alternatively, we could have a very complicated and unreadable nested function call. Using the pipe syntax we can avoid both.</p>
+</div>
+</div>
+<p>Now we have a reduced data frame with female patients over 70.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adsl_filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   STUDYID            USUBJID               AGE            SEX           
+ Length:141         Length:141         Min.   :70.00   Length:141        
+ Class :character   Class :character   1st Qu.:75.00   Class :character  
+ Mode  :character   Mode  :character   Median :79.00   Mode  :character  
+                                       Mean   :78.82                     
+                                       3rd Qu.:83.00                     
+                                       Max.   :89.00                     
+     RACE               ARM           
+ Length:141         Length:141        
+ Class :character   Class :character  
+ Mode  :character   Mode  :character  
+                                      
+                                      
+                                      </code></pre>
+</div>
+</div>
+<p>This yielded the same result as the base R sequential code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, SEX, RACE, ARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all.equal</span>(adsl_filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>There is another inline operator which can be very useful within the filter function; <code>%in%</code>. With this operator, we can select rows based on a prespecified vector of values. This can be useful if there are specified values (e.g., specific <code>USUBJID</code>) which we would like to look at.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we randomly chose 4 USUBJID's:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>lookup_ids <span class="ot">&lt;-</span> <span class="fu">sample</span>(adsl<span class="sc">$</span>USUBJID, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and then create a logical vector which returns TRUE for every entry in the </span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># USUBJID vector which are represented in the lookup_ids, and else FALSE</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>adsl<span class="sc">$</span>USUBJID <span class="sc">%in%</span> lookup_ids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+[169] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[229] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[253] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[265] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[277] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[289] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[301] FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this approach can be used in the filter function: </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, SEX, RACE, ARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(USUBJID <span class="sc">%in%</span> lookup_ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+  STUDYID      USUBJID       AGE SEX   RACE  ARM                 
+  &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;               
+1 CDISCPILOT01 01-701-1287    56 F     WHITE Xanomeline High Dose
+2 CDISCPILOT01 01-709-1217    77 M     WHITE Xanomeline Low Dose 
+3 CDISCPILOT01 01-709-1306    60 F     WHITE Placebo             
+4 CDISCPILOT01 01-718-1355    79 M     WHITE Placebo             </code></pre>
+</div>
+</div>
+</section>
+<section id="arrange" class="level3">
+<h3 class="anchored" data-anchor-id="arrange">arrange</h3>
+<p>We can sort the dataframe with the arrange() function. It allows the sorting based on multiple variables. Note that the order of arranging variables determines the sorting hierarchy, so in this example we first order by <code>AGE</code> and</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, SEX, RACE, ARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ARM, AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 141 × 6
+   STUDYID      USUBJID       AGE SEX   RACE                      ARM    
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                     &lt;chr&gt;  
+ 1 CDISCPILOT01 01-705-1282    70 F     BLACK OR AFRICAN AMERICAN Placebo
+ 2 CDISCPILOT01 01-704-1260    71 F     WHITE                     Placebo
+ 3 CDISCPILOT01 01-703-1210    72 F     WHITE                     Placebo
+ 4 CDISCPILOT01 01-716-1026    73 F     WHITE                     Placebo
+ 5 CDISCPILOT01 01-718-1150    73 F     WHITE                     Placebo
+ 6 CDISCPILOT01 01-708-1087    74 F     WHITE                     Placebo
+ 7 CDISCPILOT01 01-708-1316    74 F     WHITE                     Placebo
+ 8 CDISCPILOT01 01-709-1001    76 F     WHITE                     Placebo
+ 9 CDISCPILOT01 01-710-1077    76 F     WHITE                     Placebo
+10 CDISCPILOT01 01-715-1397    76 F     WHITE                     Placebo
+# … with 131 more rows</code></pre>
+</div>
+</div>
+<p>To sort by descending order, we can use the helper function <code>desc()</code> within <code>arrange()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, SEX, RACE, ARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ARM, <span class="fu">desc</span>(AGE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 141 × 6
+   STUDYID      USUBJID       AGE SEX   RACE  ARM    
+   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  
+ 1 CDISCPILOT01 01-710-1083    89 F     WHITE Placebo
+ 2 CDISCPILOT01 01-710-1368    88 F     WHITE Placebo
+ 3 CDISCPILOT01 01-714-1035    88 F     WHITE Placebo
+ 4 CDISCPILOT01 01-701-1387    87 F     WHITE Placebo
+ 5 CDISCPILOT01 01-704-1233    87 F     WHITE Placebo
+ 6 CDISCPILOT01 01-716-1024    87 F     WHITE Placebo
+ 7 CDISCPILOT01 01-705-1349    86 F     WHITE Placebo
+ 8 CDISCPILOT01 01-710-1271    86 F     WHITE Placebo
+ 9 CDISCPILOT01 01-716-1108    86 F     WHITE Placebo
+10 CDISCPILOT01 01-701-1047    85 F     WHITE Placebo
+# … with 131 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

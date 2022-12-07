@@ -5,19 +5,22 @@ format: html
 editor: visual
 ---
 
-
 ## setup
+```{r}
+# remotes::install_github("https://github.com/pharmaverse/admiral")
+# library(admiral)
+library(tidyverse)
+```
 
 ```{r}
 adsl <- haven::read_sas("data/adsl.sas7bdat") %>% 
   mutate_if(is_character, na_if, "")
 ```
 
-we can have a look at the data using many different commands / functions, e.g. the `summary` function and the `head` function:
+we can have a look at the data using many different commands / functions, e.g. the `head()` function which gives us the first six observations:
 
 ```{r}
 head(adsl)
-summary(adsl)
 ```
 
 ## `dplyr`
@@ -53,34 +56,144 @@ vec %>%
 
 However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function.
 
-## Datawrangling 
+## Datawrangling
 
-First input is always the data frame. 
-After that, there can be various inputs The select function takes column names as inputs.
-Compared to the base r syntax we do not have to write column names in quotation marks.
+First input is always the data frame. After that, there can be various inputs The select function takes column names as inputs. Compared to the base r syntax we do not have to write column names in quotation marks.
 
-dplyr syntax lets us specify the dataframe first, and afterwards we can refer
-to columns within a dataframe without the need to always reference the dataframe 
-of origin:
+dplyr syntax lets us specify the dataframe first, and afterwards we can refer to columns within a dataframe without the need to always reference the dataframe of origin:
 
+### select
 
-## select
 ```{r}
 # base
 adsl[c("STUDYID", "USUBJID", "AGE", "SEX", "RACE", "ARM")]
 
 # dplyr::select
-select(.data = adsl, STUDYID, USUBJID, AGE, SEX, RACE, ARM)
+adsl_select <- select(.data = adsl, STUDYID, USUBJID, AGE, SEX, RACE, ARM)
 
 # dplyr::select & pipe
 adsl %>% 
   select(STUDYID, USUBJID, AGE, SEX, RACE, ARM)
 ```
 
-There are also some helper functions to use within the `select` function of `dplyr`.
-`starts_with()`
-`ends_with()`
-`num_range()`
+There are also some helper functions to use within the `select` function of `dplyr`. `starts_with()` `ends_with()` `num_range()`. 
+They allow us to select multiple columns sharing a naming structure. 
+`num_range()` let's us select consecutively numbered columns, e.g.:
+`num_range("example", 1:4)` would select the columns named: `r paste("example", 1:4, sep = "")`. 
+
+We can try out `starts_with()`:
+
+```{r}
+adsl %>% 
+  select(USUBJID, 
+         starts_with("trt"))
+```
+And `ends_with()`:
+
+```{r}
+# in this df, all variables that contain dates end with "DT". 
+# We can select them:
+adsl %>% 
+  select(USUBJID, 
+         ends_with("DT"))
+```
+
+
+
 
 ### filter
+
+The `filter` function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame. Again, we supply the data-frame via the pipe operator. The logical vector is generally created within the function call and can use any of the following logic operators:
+
+    <                less than
+    <=               less than or equal to
+    >                greater than
+    >=               greater than or equal to
+    ==               equal
+    !=               not equal
+    !x               not x (negation)
+    x | y            x OR y
+    x & y            x AND y
+    xor(x, y)        exclusive OR (either in x or y, but not in both)
+
+Within `filter`, we can chain logical vectors by separating them with a comma (`,`). Lets have a look at women older than 70:
+
+```{r}
+# base:
+adsl_filter <- adsl_select[adsl_select$AGE>=70 & adsl_select$SEX=="F", ]
+
+# select, filter, & pipe:
+adsl %>% 
+  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  filter(AGE >= 70,
+         SEX == "F")
+  
+```
+
+::: {.callout-note appearance="simple"}
+## pipe
+The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. 
+traditionally, we start a new line after every pipe operator. 
+
+In base R we saved each step in a separate dataframe. 
+Alternatively, we could have a very complicated and unreadable nested function call. 
+Using the pipe syntax we can avoid both. 
+:::
+
+Now we have a reduced data frame with female patients over 70.
+
+```{r}
+summary(adsl_filter)
+```
+
+This yielded the same result as the base R sequential code:
+```{r}
+adsl %>% 
+  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  filter(AGE >= 70,
+         SEX == "F") %>% 
+  all.equal(adsl_filter)
+  
+```
+
+There is another inline operator which can be very useful within the filter function; `%in%`.
+With this operator, we can select rows based on a prespecified vector of values. 
+This can be useful if there are specified  values (e.g., specific `USUBJID`) which we would like to look at.
+
+```{r}
+# we randomly chose 4 USUBJID's:
+lookup_ids <- sample(adsl$USUBJID, size = 4, replace = FALSE)
+
+# and then create a logical vector which returns TRUE for every entry in the 
+# USUBJID vector which are represented in the lookup_ids, and else FALSE
+adsl$USUBJID %in% lookup_ids
+
+# this approach can be used in the filter function: 
+adsl %>% 
+  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  filter(USUBJID %in% lookup_ids)
+```
+
+
+
+### arrange
+We can sort the dataframe with the arrange() function. 
+It allows the sorting based on multiple variables. 
+Note that the order of arranging variables determines the sorting hierarchy, so in this example we first order by `AGE` and 
+
+```{r}
+ adsl %>% 
+  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  filter(AGE >= 70,
+         SEX == "F") %>% 
+  arrange(ARM, AGE)
+```
+To sort by descending order, we can use the helper function `desc()` within `arrange()`:
+```{r}
+ adsl %>% 
+  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  filter(AGE >= 70,
+         SEX == "F") %>% 
+  arrange(ARM, desc(AGE))
+```
 
