@@ -188,36 +188,3 @@ To sort by descending order, we can use the helper function `desc()` within `arr
          SEX == "F") %>% 
   arrange(ARM, desc(AGE))
 ```
-
-------------------------------------------------------------------------
-
-## Exercises
-
-Take the original `adsl` data-frame from above and:
-
--   select the following variables:
-    -   USUBJID
-
-    -   SEX
-
-    -   COUNTRY
-
-    -   ARM
-
-    -   EOSSTT
-
-    -   AGE
-
-    -   AGEU
-
-    -   AGEGR1
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show solution"
-adsl %>% 
-  select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE"))
-
-```
-
--   Include only patients in the placebo arm who are 66, 77, 88, or 99 years old

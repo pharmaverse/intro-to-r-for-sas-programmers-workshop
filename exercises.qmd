@@ -1,0 +1,93 @@
+---
+title: "exercises"
+author: "Stefan & ..."
+format: html
+editor: visual
+---
+
+# Exercises
+
+```{r}
+#| include: false
+#| eval: true
+
+#library(learnr)
+```
+
+## Setup
+
+```{r}
+library("tidyverse")
+
+
+# load data
+adsl <- haven::read_sas("data/adsl.sas7bdat") %>% 
+  mutate_if(is_character, na_if, "")
+```
+
+## Data wrangling with dplyr
+
+Load the `adsl` data-frame and select the following variables: - USUBJID
+
+-   SEX
+
+-   COUNTRY
+
+-   ARM
+
+-   EOSSTT
+
+-   AGE
+
+-   AGEU
+
+-   AGEGR1
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+adsl %>% 
+  select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE"))
+
+```
+
+On the selected variables, include only patients in the placebo arm who are 66, 77, 88, or 99 years old.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+adsl %>% 
+  select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE")) %>% 
+  filter(ARM == "Placebo",
+         AGE %in% c(6:9*11))
+```
+
+Further include the variable TRTSDTM (datetime of first exposure to treatment) and sort the previous data-frame according to this variable from most recent to least recent first exposure.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+adsl %>% 
+  select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE"), TRTSDTM) %>% 
+  filter(ARM == "Placebo",
+         AGE %in% c(6:9*11)) %>% 
+  arrange(desc(TRTSDTM))
+```
+
+<!-- multiple choice could be used if we chose to do a learnr app... -->
+
+<!-- ```{r select, echo=FALSE} -->
+
+<!-- question("Which callS within `select()` allow us to select the variables `STUDYID`, `SUBJID`, and `USUBJID`", -->
+
+<!--   answer("starts_with(\"ID\")"), -->
+
+<!--   answer("ends_with(\"ID\")"), correct = TRUE, -->
+
+<!--   answer("STUDYID, ends_with(\"SUBJID\")", correct = TRUE), -->
+
+<!--   answer("STUDYID, SUBJID, USUBJID", correct = TRUE) -->
+
+<!-- ) -->
+
+<!-- ``` -->
