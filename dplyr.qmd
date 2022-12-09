@@ -67,14 +67,14 @@ dplyr syntax lets us specify the dataframe first, and afterwards we can refer to
 
 ```{r}
 # base
-adsl[c("STUDYID", "USUBJID", "AGE", "SEX", "RACE", "ARM")]
+adsl[c("STUDYID", "USUBJID","ARM", "AGE", "SEX", "RACE")]
 
 # dplyr::select
-adsl_select <- select(.data = adsl, STUDYID, USUBJID, AGE, SEX, RACE, ARM)
+adsl_select <- select(.data = adsl, STUDYID, USUBJID, ARM, AGE, SEX, RACE)
 
 # dplyr::select & pipe
 adsl %>% 
-  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM)
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE)
 ```
 
 There are also some helper functions to use within the `select` function of `dplyr`. `starts_with()` `ends_with()` `num_range()`. They allow us to select multiple columns sharing a naming structure. `num_range()` let's us select consecutively numbered columns, e.g.: `num_range("example", 1:4)` would select the columns named: `r paste("example", 1:4, sep = "")`.
@@ -96,6 +96,20 @@ adsl %>%
   select(USUBJID, 
          ends_with("DT"))
 ```
+::: {.callout-note appearance="simple"}
+## Change order of variables
+
+We can use the `select()` function to reorder the variables in the data-frame. 
+This does not affect the order of rows.
+
+
+```{r}
+adsl %>% 
+  select(ARM, USUBJID)
+```
+
+:::
+
 
 ### filter
 
@@ -110,7 +124,7 @@ The `filter` function allows us to look at a subset of observations. As input, t
     !x               not x (negation)
     x | y            x OR y
     x & y            x AND y
-    xor(x, y)        exclusive OR (either in x or y, but not in both)
+    x %in% y         logical vector of length x with TRUE if element of x is in y 
 
 Within `filter`, we can chain logical vectors by separating them with a comma (`,`). Lets have a look at women older than 70:
 
@@ -120,7 +134,7 @@ adsl_filter <- adsl_select[adsl_select$AGE>=70 & adsl_select$SEX=="F", ]
 
 # select, filter, & pipe:
 adsl %>% 
-  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(AGE >= 70,
          SEX == "F")
   
@@ -144,7 +158,7 @@ This yielded the same result as the base R sequential code:
 
 ```{r}
 adsl %>% 
-  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(AGE >= 70,
          SEX == "F") %>% 
   all.equal(adsl_filter)
@@ -163,7 +177,7 @@ adsl$USUBJID %in% lookup_ids
 
 # this approach can be used in the filter function: 
 adsl %>% 
-  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(USUBJID %in% lookup_ids)
 ```
 
@@ -173,7 +187,7 @@ We can sort the dataframe with the arrange() function. It allows the sorting bas
 
 ```{r}
  adsl %>% 
-  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(AGE >= 70,
          SEX == "F") %>% 
   arrange(ARM, AGE)
@@ -183,7 +197,7 @@ To sort by descending order, we can use the helper function `desc()` within `arr
 
 ```{r}
  adsl %>% 
-  select(STUDYID, USUBJID, AGE, SEX, RACE, ARM) %>% 
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(AGE >= 70,
          SEX == "F") %>% 
   arrange(ARM, desc(AGE))

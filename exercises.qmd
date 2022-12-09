@@ -1,11 +1,9 @@
 ---
 title: "exercises"
-author: "Stefan & ..."
+author: "Stefan"
 format: html
 editor: visual
 ---
-
-# Exercises
 
 ```{r}
 #| include: false
@@ -27,15 +25,13 @@ adsl <- haven::read_sas("data/adsl.sas7bdat") %>%
 
 ## Data wrangling with dplyr
 
-Load the `adsl` data-frame and select the following variables: - USUBJID
+Load the `adsl` data-frame and select the following variables:
 
--   SEX
-
--   COUNTRY
+-   USUBJID
 
 -   ARM
 
--   EOSSTT
+-   SEX
 
 -   AGE
 
@@ -43,11 +39,15 @@ Load the `adsl` data-frame and select the following variables: - USUBJID
 
 -   AGEGR1
 
+-   COUNTRY
+
+-   EOSSTT
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show solution"
 adsl %>% 
-  select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE"))
+  select(USUBJID, ARM, SEX, starts_with("AGE"), COUNTRY, EOSSTT)
 
 ```
 
