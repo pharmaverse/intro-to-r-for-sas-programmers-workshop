@@ -61,9 +61,18 @@ However, most often, the pipe takes a dataset (or a modified dataset) and forwar
 
 First input is always the data frame. After that, there can be various inputs The select function takes column names as inputs. Compared to the base r syntax we do not have to write column names in quotation marks.
 
-dplyr syntax lets us specify the dataframe first, and afterwards we can refer to columns within a dataframe without the need to always reference the dataframe of origin:
+dplyr syntax lets us specify the dataframe first, and afterwards we can refer to columns within a dataframe without the need to always reference the dataframe of origin.
 
 ### select
+
+The `select` function lets us select all variables mentioned in the arguments (and drops all other variables). Alternatively, we can selectively drop variables if we place a minus (`-`) in front of the variable name.\
+We can first have a look at all variable names of the data-frame:
+
+```{r}
+names(adsl)
+```
+
+And then select the desired variables:
 
 ```{r}
 # base
@@ -76,6 +85,8 @@ adsl_select <- select(.data = adsl, STUDYID, USUBJID, ARM, AGE, SEX, RACE)
 adsl %>% 
   select(STUDYID, USUBJID, ARM, AGE, SEX, RACE)
 ```
+
+We end up with a new data-frame including only the selected variables. Note here that we do not save the resulting data-frame at the moment.
 
 There are also some helper functions to use within the `select` function of `dplyr`. `starts_with()` `ends_with()` `num_range()`. They allow us to select multiple columns sharing a naming structure. `num_range()` let's us select consecutively numbered columns, e.g.: `num_range("example", 1:4)` would select the columns named: `r paste("example", 1:4, sep = "")`.
 
@@ -96,20 +107,24 @@ adsl %>%
   select(USUBJID, 
          ends_with("DT"))
 ```
+
+If we want a data-frame that does not include any dates, we can make use of the minus sign in combination with the `ends_with()` function:
+
+```{r}
+adsl %>% 
+  select(-ends_with("DT")) 
+```
+
 ::: {.callout-note appearance="simple"}
 ## Change order of variables
 
-We can use the `select()` function to reorder the variables in the data-frame. 
-This does not affect the order of rows.
-
+We can use the `select()` function to reorder the variables in the data-frame. This does not affect the order of rows.
 
 ```{r}
 adsl %>% 
   select(ARM, USUBJID)
 ```
-
 :::
-
 
 ### filter
 
@@ -129,16 +144,18 @@ The `filter` function allows us to look at a subset of observations. As input, t
 Within `filter`, we can chain logical vectors by separating them with a comma (`,`). Lets have a look at women older than 70:
 
 ```{r}
-# base:
-adsl_filter <- adsl_select[adsl_select$AGE>=70 & adsl_select$SEX=="F", ]
-
-# select, filter, & pipe:
-adsl %>% 
-  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
-  filter(AGE >= 70,
-         SEX == "F")
-  
+filter(select(adsl, 
+              STUDYID, 
+              USUBJID, 
+              ARM, 
+              AGE, 
+              SEX, 
+              RACE),
+       AGE >= 70,
+       SEX == "F")
 ```
+
+
 
 ::: {.callout-note appearance="simple"}
 ## pipe
@@ -149,6 +166,14 @@ In base R we saved each step in a separate dataframe. Alternatively, we could ha
 :::
 
 Now we have a reduced data frame with female patients over 70.
+
+```{r}
+# select, filter, & pipe:
+adsl %>% 
+  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
+  filter(AGE >= 70,
+         SEX == "F")
+```
 
 ```{r}
 summary(adsl_filter)
@@ -169,7 +194,8 @@ There is another inline operator which can be very useful within the filter func
 
 ```{r}
 # we randomly chose 4 USUBJID's:
-lookup_ids <- sample(adsl$USUBJID, size = 4, replace = FALSE)
+lookup_ids <- c("01-716-1151", "01-710-1443", "01-708-1184", "01-705-1186")
+
 
 # and then create a logical vector which returns TRUE for every entry in the 
 # USUBJID vector which are represented in the lookup_ids, and else FALSE
