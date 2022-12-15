@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-## setup
+## Setup
 
 ```{r}
 # remotes::install_github("https://github.com/pharmaverse/admiral")
@@ -30,32 +30,32 @@ head(adsl)
 
 `dplyr` is not strictly needed for any of that, everything can be done in base R. However, `dplyr` provides a framework to write readable code and a pipeline to work efficiently.
 
-The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example:
+<!-- The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example: -->
 
-```{r}
-vec <- 1:10
+<!-- ```{r} -->
+<!-- vec <- 1:10 -->
 
-# base:
-mean(vec)
+<!-- # base: -->
+<!-- mean(vec) -->
 
-# dplyr:
-vec %>% mean()
-```
+<!-- # dplyr: -->
+<!-- vec %>% mean() -->
+<!-- ``` -->
 
-The pipe operator let's us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector `vec`:
+<!-- The pipe operator let's us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector `vec`: -->
 
-```{r}
-# base:
-round(var(scale(vec, scale = FALSE)), digits = 2)
+<!-- ```{r} -->
+<!-- # base: -->
+<!-- round(var(scale(vec, scale = FALSE)), digits = 2) -->
 
-# dplyr:
-vec %>% 
-  scale(scale = FALSE) %>% 
-  var() %>% 
-  round(digits = 2)
-```
+<!-- # dplyr: -->
+<!-- vec %>%  -->
+<!--   scale(scale = FALSE) %>%  -->
+<!--   var() %>%  -->
+<!--   round(digits = 2) -->
+<!-- ``` -->
 
-However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function.
+<!-- However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function. -->
 
 ## Datawrangling
 
@@ -75,15 +75,14 @@ names(adsl)
 And then select the desired variables:
 
 ```{r}
-# base
-adsl[c("STUDYID", "USUBJID","ARM", "AGE", "SEX", "RACE")]
-
 # dplyr::select
-adsl_select <- select(.data = adsl, STUDYID, USUBJID, ARM, AGE, SEX, RACE)
-
-# dplyr::select & pipe
-adsl %>% 
-  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE)
+select(.data = adsl, 
+       STUDYID, 
+       USUBJID, 
+       ARM, 
+       AGE, 
+       SEX, 
+       RACE)
 ```
 
 We end up with a new data-frame including only the selected variables. Note here that we do not save the resulting data-frame at the moment.
@@ -93,9 +92,9 @@ There are also some helper functions to use within the `select` function of `dpl
 We can try out `starts_with()`:
 
 ```{r}
-adsl %>% 
-  select(USUBJID, 
-         starts_with("trt"))
+select(adsl,
+       USUBJID, 
+       starts_with("trt"))
 ```
 
 And `ends_with()`:
@@ -103,16 +102,16 @@ And `ends_with()`:
 ```{r}
 # in this df, all variables that contain dates end with "DT". 
 # We can select them:
-adsl %>% 
-  select(USUBJID, 
-         ends_with("DT"))
+select(adsl,
+       USUBJID, 
+       ends_with("DT"))
 ```
 
 If we want a data-frame that does not include any dates, we can make use of the minus sign in combination with the `ends_with()` function:
 
 ```{r}
-adsl %>% 
-  select(-ends_with("DT")) 
+select(adsl,
+       -ends_with("DT")) 
 ```
 
 ::: {.callout-note appearance="simple"}
@@ -120,9 +119,10 @@ adsl %>%
 
 We can use the `select()` function to reorder the variables in the data-frame. This does not affect the order of rows.
 
-```{r}
-adsl %>% 
-  select(ARM, USUBJID)
+```{r}  
+select(adsl,
+         ARM, 
+         USUBJID)
 ```
 :::
 
@@ -155,45 +155,37 @@ filter(select(adsl,
        SEX == "F")
 ```
 
-
+Now we have a reduced data frame with female patients over 70.
+However, the nested call is not very intuitive to read.
+If any more functions get added to this code, it becomes even less readable. 
+That is where the pipe operator (` %>% `) comes in.
 
 ::: {.callout-note appearance="simple"}
 ## pipe
 
-The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. traditionally, we start a new line after every pipe operator.
-
-In base R we saved each step in a separate dataframe. Alternatively, we could have a very complicated and unreadable nested function call. Using the pipe syntax we can avoid both.
+The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. 
+The pipe operator let's us write nested function calls in a sequential way.
+Traditionally, we start a new line after every pipe operator.
 :::
 
-Now we have a reduced data frame with female patients over 70.
 
 ```{r}
 # select, filter, & pipe:
-adsl %>% 
-  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
+adsl %>% # This pipe forwards adsl to the select function as its first argument
+  select(STUDYID, 
+         USUBJID,
+         ARM, 
+         AGE, 
+         SEX, 
+         RACE) %>% # this pipe forwards the selected variables to the filter function
   filter(AGE >= 70,
          SEX == "F")
-```
-
-```{r}
-summary(adsl_filter)
-```
-
-This yielded the same result as the base R sequential code:
-
-```{r}
-adsl %>% 
-  select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
-  filter(AGE >= 70,
-         SEX == "F") %>% 
-  all.equal(adsl_filter)
-  
 ```
 
 There is another inline operator which can be very useful within the filter function; `%in%`. With this operator, we can select rows based on a prespecified vector of values. This can be useful if there are specified values (e.g., specific `USUBJID`) which we would like to look at.
 
 ```{r}
-# we randomly chose 4 USUBJID's:
+# we save 4 USUBJID's in a vector:
 lookup_ids <- c("01-716-1151", "01-710-1443", "01-708-1184", "01-705-1186")
 
 
