@@ -1,0 +1,126 @@
+---
+title: "tidyr_exercises"
+format: html
+editor: visual
+---
+
+## Setup
+
+```{r, warning = FALSE, message = FALSE}
+library("tidyverse")
+library(admiral)
+library(admiral.test)
+library(dplyr)
+library(tidyr)
+
+# load data
+ex <- admiral_ex
+dm <- admiral_dm
+ds <- admiral_ds
+suppds <- admiral_suppds
+```
+
+## Pivoting with tidyr
+
+Load the `ex` data-frame from `admiral_ex`and select the following variables:
+
+-   USUBJID
+
+-   EXTRT
+
+-   VISIT
+
+-   EXSTDTC
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+ex %>% 
+  select(USUBJID, EXTRT, VISIT, EXSTDTC)
+```
+
+
+Using `pivot_wider()` create a table that would shaped this way
+
+| USUBJID | EXTRT | BASELINE | WEEK 2 | WEEK 24 |
+|---------|-------|----------|--------|---------|
+| ...     | ...   | ...      | ...    | ...     |
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+ex %>% 
+  select(USUBJID, EXTRT, VISIT, EXSTDTC) %>% 
+  pivot_wider(., names_from = "VISIT", values_from = "EXSTDTC")
+
+```
+
+Load the `dm` data-frame from `admiral_dm`and select the following variables:
+
+-   USUBJID
+
+-   RACE
+
+-   SEX
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+dm %>% 
+  select(USUBJID, RACE, SEX)
+```
+
+
+Using `pivot_longer()` create a table that would shaped this way
+
+| USUBJID | VAR  | VAL   |
+|---------|------|-------|
+| 1001    | RACE | WHITE | 
+| 1001    | SEX  | M     |
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+dm %>% 
+  select(USUBJID, RACE, SEX) %>% 
+  pivot_longer(., 
+               cols = c(RACE, SEX),
+               names_to = "VAR",
+               values_to = "VAL")
+
+```
+
+## Joining using dplyr
+
+Load the `ds` data-frame from `admiral_ds` and `suppds` data-frame from `admiral_suppds`.
+Prior to joining the two datasets together, we may need to do some cleaning of the data on `suppds`. 
+
+- Filter IDVAR for "DSSEQ"
+
+- Mutate IDVARVAL from type character to type numeric.
+
+- Select USUBJID IDVARVAL QNAM QLABEL QVAL
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+
+suppds <- suppds %>% 
+  filter(IDVAR == "DSSEQ") %>% 
+  mutate(IDVARVAL = as.numeric(IDVARVAL)) %>% 
+  select(USUBJID, IDVARVAL, QNAM, QLABEL, QVAL)
+
+suppds
+```
+
+Join the two tables together using `USUBJID` and `DSSEQ` as the key joining variables.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+ds %>% 
+  left_join(., suppds, by = c("USUBJID" = "USUBJID", "DSSEQ" = "IDVARVAL"))
+```

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.651">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zelos">
+
+<title>tidyr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="tidyr_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tidyr_files/libs/quarto-html/quarto.js"></script>
+<script src="tidyr_files/libs/quarto-html/popper.min.js"></script>
+<script src="tidyr_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="tidyr_files/libs/quarto-html/anchor.min.js"></script>
+<link href="tidyr_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tidyr_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="tidyr_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="tidyr_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="tidyr_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">tidyr</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zelos </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="transposing-data" class="level1">
+<h1>Transposing Data</h1>
+<section id="some-context" class="level2">
+<h2 class="anchored" data-anchor-id="some-context">Some Context</h2>
+<p>As we know, data can often be represented in several ways. Multiple observations of a variable can be organized by rows or by columns.</p>
+<p>Table A.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Pre</th>
+<th>Post</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>Table B.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Time</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>x</td>
+<td>Pre</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>x</td>
+<td>Post</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>y</td>
+<td>Pre</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td>Post</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>When observations are spread along a row as multiple columns, we refer to the data as being in “wide” format (See Table A). When observations are spread along a column as multiple rows, we refer to the data as being in “long” format (See Table B). SDTM data for the most part generally adheres to the “long” structure, but as programmers we need to know how to work with both to suit our needs.</p>
+<p>To get the desired shape of data, there are two useful functions from the <code>tidyr</code> package to make this transformation, aptly named: <code>pivot_longer()</code> and <code>pivot_wider()</code> . These can be seen as the R-equivalent of <code>proc transpose</code> in SAS.</p>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'admiral.test' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.0.5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   USUBJID     QNAM     QVAL 
+   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;
+ 1 01-701-1015 COMPLT16 Y    
+ 2 01-701-1015 COMPLT24 Y    
+ 3 01-701-1015 COMPLT8  Y    
+ 4 01-701-1015 EFFICACY Y    
+ 5 01-701-1015 ITT      Y    
+ 6 01-701-1015 SAFETY   Y    
+ 7 01-701-1023 EFFICACY Y    
+ 8 01-701-1023 ITT      Y    
+ 9 01-701-1023 SAFETY   Y    
+10 01-701-1028 COMPLT16 Y    </code></pre>
+</div>
+</div>
+<p>As we see here, in our <code>SUPPDM</code> domain, the data is currently in the “long” format. If we wanted to transform the dataset such that each of the unique values of <code>QNAM</code> was their own column, we are looking to transpose the data from “long” to “wide”. In this case, we use <code>pivot_wider()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>suppdm_wide <span class="ot">&lt;-</span> suppdm <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(., </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> <span class="st">"QNAM"</span>, <span class="co"># assign column names based on QNAM</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">"QVAL"</span>) <span class="co"># retrieve values from QVAL</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>suppdm_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 254 × 7
+   USUBJID     COMPLT16 COMPLT24 COMPLT8 EFFICACY ITT   SAFETY
+   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; 
+ 1 01-701-1015 Y        Y        Y       Y        Y     Y     
+ 2 01-701-1023 &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    Y        Y     Y     
+ 3 01-701-1028 Y        Y        Y       Y        Y     Y     
+ 4 01-701-1033 &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    Y        Y     Y     
+ 5 01-701-1034 Y        Y        Y       Y        Y     Y     
+ 6 01-701-1047 &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    Y        Y     Y     
+ 7 01-701-1097 Y        Y        Y       Y        Y     Y     
+ 8 01-701-1111 &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    Y        Y     Y     
+ 9 01-701-1115 &lt;NA&gt;     &lt;NA&gt;     Y       Y        Y     Y     
+10 01-701-1118 Y        Y        Y       Y        Y     Y     
+# … with 244 more rows</code></pre>
+</div>
+</div>
+<p>Voila! This “wide” dataset may prove useful for joins (to be discussed later). But for now, let’s pretend that this “wide” format is how our original data came to us in. If we wanted to take these respective flagging columns and turn them into a “long” format, we use <code>pivot_longer()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>suppdm_long <span class="ot">&lt;-</span> suppdm_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(., </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"COMPLT16"</span>, <span class="st">"COMPLT24"</span>, <span class="st">"COMPLT8"</span>, <span class="st">"EFFICACY"</span>, <span class="st">"ITT"</span>, <span class="st">"SAFETY"</span>), </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"QNAM"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"QVAL"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>suppdm_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,524 × 3
+   USUBJID     QNAM     QVAL 
+   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;
+ 1 01-701-1015 COMPLT16 Y    
+ 2 01-701-1015 COMPLT24 Y    
+ 3 01-701-1015 COMPLT8  Y    
+ 4 01-701-1015 EFFICACY Y    
+ 5 01-701-1015 ITT      Y    
+ 6 01-701-1015 SAFETY   Y    
+ 7 01-701-1023 COMPLT16 &lt;NA&gt; 
+ 8 01-701-1023 COMPLT24 &lt;NA&gt; 
+ 9 01-701-1023 COMPLT8  &lt;NA&gt; 
+10 01-701-1023 EFFICACY Y    
+# … with 1,514 more rows</code></pre>
+</div>
+</div>
+<p>As you can see, as we pivoted back, we didn’t come up with an exact* duplicate of our original <code>suppdm</code> dataframe. This is because the default of <code>pivot_longer()</code> is <strong>not</strong> to drop <code>NA</code> values, which can be modified with the <code>values_drop_na</code> function input, just one of the many powerful additional function inputs from both of these pivoting functions. <code>pivot_wider()</code> and <code>pivot_longer()</code> were designed to handle a variety of situations when transposing data in the most flexible of ways.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>suppdm_long <span class="ot">&lt;-</span> suppdm_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(., </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"COMPLT16"</span>, <span class="st">"COMPLT24"</span>, <span class="st">"COMPLT8"</span>, <span class="st">"EFFICACY"</span>, <span class="st">"ITT"</span>, <span class="st">"SAFETY"</span>), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"flag"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"flag_value"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>suppdm_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,197 × 3
+   USUBJID     flag     flag_value
+   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;     
+ 1 01-701-1015 COMPLT16 Y         
+ 2 01-701-1015 COMPLT24 Y         
+ 3 01-701-1015 COMPLT8  Y         
+ 4 01-701-1015 EFFICACY Y         
+ 5 01-701-1015 ITT      Y         
+ 6 01-701-1015 SAFETY   Y         
+ 7 01-701-1023 EFFICACY Y         
+ 8 01-701-1023 ITT      Y         
+ 9 01-701-1023 SAFETY   Y         
+10 01-701-1028 COMPLT16 Y         
+# … with 1,187 more rows</code></pre>
+</div>
+</div>
+<p>Bonus Trick: The <code>names_to</code>/<code>values_to</code> function arguments can prove to be helpful as a renaming step during the data cleaning process too!</p>
+</section>
+</section>
+<section id="relational-data-joins" class="level1">
+<h1>Relational Data (Joins)</h1>
+<p>When a pair of tables need to be joined together, we have a variety of functions that can achieve such a task:</p>
+<ul>
+<li><p><code>left_join()</code></p></li>
+<li><p><code>right_join()</code></p></li>
+<li><p><code>full_join()</code></p></li>
+<li><p><code>inner_join()</code></p></li>
+</ul>
+<p>The use of these functions is very similar to <code>proc sql</code> in SAS. <code>left_join()</code> will cover most of use cases and is demonstrated below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dm <span class="ot">&lt;-</span> admiral.test<span class="sc">::</span>admiral_dm <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, AGE, ARM)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>dm_suppdm <span class="ot">&lt;-</span> dm <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., suppdm_wide, <span class="at">by =</span> <span class="st">"USUBJID"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dm_suppdm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  STUDYID      USUBJID    AGE ARM   COMPL…¹ COMPL…² COMPLT8 EFFIC…³ ITT   SAFETY
+  &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; 
+1 CDISCPILOT01 01-701-…    63 Plac… Y       Y       Y       Y       Y     Y     
+2 CDISCPILOT01 01-701-…    64 Plac… &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    Y       Y     Y     
+3 CDISCPILOT01 01-701-…    71 Xano… Y       Y       Y       Y       Y     Y     
+4 CDISCPILOT01 01-701-…    74 Xano… &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    Y       Y     Y     
+5 CDISCPILOT01 01-701-…    77 Xano… Y       Y       Y       Y       Y     Y     
+6 CDISCPILOT01 01-701-…    85 Plac… &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    Y       Y     Y     
+# … with abbreviated variable names ¹​COMPLT16, ²​COMPLT24, ³​EFFICACY</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
