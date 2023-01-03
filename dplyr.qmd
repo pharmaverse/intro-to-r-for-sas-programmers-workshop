@@ -18,7 +18,7 @@ adsl <- haven::read_sas("data/adsl.sas7bdat") %>%
   mutate_if(is_character, na_if, "")
 ```
 
-we can have a look at the data using many different commands / functions, e.g. the `head()` function which gives us the first six observations:
+We can have a look at the data using many different commands / functions, e.g. the `head()` function which gives us the first six observations:
 
 ```{r}
 head(adsl)
@@ -26,42 +26,51 @@ head(adsl)
 
 ## `dplyr`
 
-`dplyr` is a package which is part of the tidyverse. Dplyr helps us handle data. In R, we generally work with datasets. With `dplyr` we can easily select variables, filter specific rows, sort a dataset based on variable values and much more.
+`dplyr` is a package which is part of the tidyverse. `dplyr` helps us handle data. In R, we generally work with data-sets. With `dplyr` we can easily select variables, filter specific rows, sort data-sets based on variable values and much more.
 
 `dplyr` is not strictly needed for any of that, everything can be done in base R. However, `dplyr` provides a framework to write readable code and a pipeline to work efficiently.
 
 <!-- The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example: -->
 
 <!-- ```{r} -->
+
 <!-- vec <- 1:10 -->
 
 <!-- # base: -->
+
 <!-- mean(vec) -->
 
 <!-- # dplyr: -->
+
 <!-- vec %>% mean() -->
+
 <!-- ``` -->
 
 <!-- The pipe operator let's us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector `vec`: -->
 
 <!-- ```{r} -->
+
 <!-- # base: -->
+
 <!-- round(var(scale(vec, scale = FALSE)), digits = 2) -->
 
 <!-- # dplyr: -->
+
 <!-- vec %>%  -->
+
 <!--   scale(scale = FALSE) %>%  -->
+
 <!--   var() %>%  -->
+
 <!--   round(digits = 2) -->
+
 <!-- ``` -->
 
 <!-- However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function. -->
 
 ## Datawrangling
 
-First input is always the data frame. After that, there can be various inputs The select function takes column names as inputs. Compared to the base r syntax we do not have to write column names in quotation marks.
-
-dplyr syntax lets us specify the dataframe first, and afterwards we can refer to columns within a dataframe without the need to always reference the dataframe of origin.
+There are various functions within `dplyr` for datawrangling which follow a consistent structure. The first input of the most used dplyr functions is the data-frame. Then follow arguments specifying the behaviour of the function. Compared to the base r syntax we do not have to write column / variable names in quotation marks; `dplyr` syntax lets us refer to columns within a data-frame without the need to always reference the dataframe of origin.
 
 ### select
 
@@ -119,7 +128,7 @@ select(adsl,
 
 We can use the `select()` function to reorder the variables in the data-frame. This does not affect the order of rows.
 
-```{r}  
+```{r}
 select(adsl,
          ARM, 
          USUBJID)
@@ -128,7 +137,21 @@ select(adsl,
 
 ### filter
 
-The `filter` function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame. Again, we supply the data-frame via the pipe operator. The logical vector is generally created within the function call and can use any of the following logic operators:
+The `filter` function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame.
+This time, we first save the reduced (selected) data-frame and use that as the first argument to `filter`.
+
+```{r}
+selected_data <- select(adsl, 
+                        STUDYID, 
+                        USUBJID, 
+                        ARM, 
+                        AGE, 
+                        SEX, 
+                        RACE)
+```
+
+
+The logical vector is generally created within the function call and can use any of the following logic operators:
 
     <                less than
     <=               less than or equal to
@@ -141,33 +164,21 @@ The `filter` function allows us to look at a subset of observations. As input, t
     x & y            x AND y
     x %in% y         logical vector of length x with TRUE if element of x is in y 
 
-Within `filter`, we can chain logical vectors by separating them with a comma (`,`). Lets have a look at women older than 70:
+Within `filter`, we can chain logical vectors by separating them with a comma (`,`). Lets have a look at women that are 70 and older:
 
 ```{r}
-filter(select(adsl, 
-              STUDYID, 
-              USUBJID, 
-              ARM, 
-              AGE, 
-              SEX, 
-              RACE),
+filter(selected_data,
        AGE >= 70,
        SEX == "F")
 ```
 
-Now we have a reduced data frame with female patients over 70.
-However, the nested call is not very intuitive to read.
-If any more functions get added to this code, it becomes even less readable. 
-That is where the pipe operator (` %>% `) comes in.
+Now we have a reduced data frame with female patients over 70. However, the nested call is not very intuitive to read. If any more functions get added to this code, it becomes even less readable. That is where the pipe operator (`%>%`) comes in.
 
 ::: {.callout-note appearance="simple"}
 ## pipe
 
-The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. 
-The pipe operator let's us write nested function calls in a sequential way.
-Traditionally, we start a new line after every pipe operator.
+The pipe operator let us chain multiple `dplyr` commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. The pipe operator let's us write nested function calls in a sequential way. Traditionally, we start a new line after every pipe operator.
 :::
-
 
 ```{r}
 # select, filter, & pipe:
@@ -193,11 +204,14 @@ lookup_ids <- c("01-716-1151", "01-710-1443", "01-708-1184", "01-705-1186")
 # USUBJID vector which are represented in the lookup_ids, and else FALSE
 adsl$USUBJID %in% lookup_ids
 
+
+
 # this approach can be used in the filter function: 
 adsl %>% 
   select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(USUBJID %in% lookup_ids)
 ```
+Note that within the `filter` function (and in all major `dplyr` functions) R looks for the requested variables first within the supplied data-frame and afterwards in the global environment.
 
 ### arrange
 

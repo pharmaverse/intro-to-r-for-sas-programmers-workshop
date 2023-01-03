@@ -1,5 +1,5 @@
 ---
-title: "exercises"
+title: "dplyr exercises"
 author: "Stefan"
 format: html
 editor: visual
@@ -73,21 +73,3 @@ adsl %>%
          AGE %in% c(6:9*11)) %>% 
   arrange(desc(TRTSDTM))
 ```
-
-<!-- multiple choice could be used if we chose to do a learnr app... -->
-
-<!-- ```{r select, echo=FALSE} -->
-
-<!-- question("Which callS within `select()` allow us to select the variables `STUDYID`, `SUBJID`, and `USUBJID`", -->
-
-<!--   answer("starts_with(\"ID\")"), -->
-
-<!--   answer("ends_with(\"ID\")"), correct = TRUE, -->
-
-<!--   answer("STUDYID, ends_with(\"SUBJID\")", correct = TRUE), -->
-
-<!--   answer("STUDYID, SUBJID, USUBJID", correct = TRUE) -->
-
-<!-- ) -->
-
-<!-- ``` -->

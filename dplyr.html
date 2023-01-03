@@ -130,8 +130,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p>write an introduction to dplyr</p>
 <section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">setup</h2>
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("https://github.com/pharmaverse/admiral")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(admiral)</span></span>
@@ -146,14 +147,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">OPENAI_API_KEY =</span> <span class="st">"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"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">"data/adsl.sas7bdat"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is_character, na_if, <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">"data/adsl.sas7bdat"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is_character, na_if, <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>we can have a look at the data using many different commands / functions, e.g.&nbsp;the <code>head()</code> function which gives us the first six observations:</p>
+<p>We can have a look at the data using many different commands / functions, e.g.&nbsp;the <code>head()</code> function which gives us the first six observations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(adsl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(adsl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 50
   STUDYID  USUBJID SUBJID RFSTDTC RFENDTC RFXST…¹ RFXEN…² RFICDTC RFPEN…³ DTHDTC
@@ -176,52 +178,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="dplyr" class="level2">
 <h2 class="anchored" data-anchor-id="dplyr"><code>dplyr</code></h2>
-<p><code>dplyr</code> is a package which is part of the tidyverse. Dplyr helps us handle data. In R, we generally work with datasets. With <code>dplyr</code> we can easily select variables, filter specific rows, sort a dataset based on variable values and much more.</p>
+<p><code>dplyr</code> is a package which is part of the tidyverse. <code>dplyr</code> helps us handle data. In R, we generally work with data-sets. With <code>dplyr</code> we can easily select variables, filter specific rows, sort data-sets based on variable values and much more.</p>
 <p><code>dplyr</code> is not strictly needed for any of that, everything can be done in base R. However, <code>dplyr</code> provides a framework to write readable code and a pipeline to work efficiently.</p>
-<p>The most crucial aspect of the <code>dplyr</code> pipeline is the pipe command (%&gt;%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let’s show a simple example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># base:</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.5</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>vec <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.5</code></pre>
-</div>
-</div>
-<p>The pipe operator let’s us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector <code>vec</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">var</span>(<span class="fu">scale</span>(vec, <span class="at">scale =</span> <span class="cn">FALSE</span>)), <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1]
-[1,] 9.17</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr:</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>vec <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>(<span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">var</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     [,1]
-[1,] 9.17</code></pre>
-</div>
-</div>
-<p>However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function.</p>
+<!-- The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example: -->
+<!-- ```{r} -->
+<!-- vec <- 1:10 -->
+<!-- # base: -->
+<!-- mean(vec) -->
+<!-- # dplyr: -->
+<!-- vec %>% mean() -->
+<!-- ``` -->
+<!-- The pipe operator let's us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector `vec`: -->
+<!-- ```{r} -->
+<!-- # base: -->
+<!-- round(var(scale(vec, scale = FALSE)), digits = 2) -->
+<!-- # dplyr: -->
+<!-- vec %>%  -->
+<!--   scale(scale = FALSE) %>%  -->
+<!--   var() %>%  -->
+<!--   round(digits = 2) -->
+<!-- ``` -->
+<!-- However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function. -->
 </section>
 <section id="datawrangling" class="level2">
 <h2 class="anchored" data-anchor-id="datawrangling">Datawrangling</h2>
-<p>First input is always the data frame. After that, there can be various inputs The select function takes column names as inputs. Compared to the base r syntax we do not have to write column names in quotation marks.</p>
-<p>dplyr syntax lets us specify the dataframe first, and afterwards we can refer to columns within a dataframe without the need to always reference the dataframe of origin:</p>
+<p>There are various functions within <code>dplyr</code> for datawrangling which follow a consistent structure. The first input of the most used dplyr functions is the data-frame. Then follow arguments specifying the behaviour of the function. Compared to the base r syntax we do not have to write column / variable names in quotation marks; <code>dplyr</code> syntax lets us refer to columns within a data-frame without the need to always reference the dataframe of origin.</p>
 <section id="select" class="level3">
 <h3 class="anchored" data-anchor-id="select">select</h3>
+<p>The <code>select</code> function lets us select all variables mentioned in the arguments (and drops all other variables). Alternatively, we can selectively drop variables if we place a minus (<code>-</code>) in front of the variable name.<br>
+We can first have a look at all variable names of the data-frame:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>adsl[<span class="fu">c</span>(<span class="st">"STUDYID"</span>, <span class="st">"USUBJID"</span>,<span class="st">"ARM"</span>, <span class="st">"AGE"</span>, <span class="st">"SEX"</span>, <span class="st">"RACE"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(adsl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "STUDYID"  "USUBJID"  "SUBJID"   "RFSTDTC"  "RFENDTC"  "RFXSTDTC"
+ [7] "RFXENDTC" "RFICDTC"  "RFPENDTC" "DTHDTC"   "DTHFL"    "SITEID"  
+[13] "AGE"      "AGEU"     "SEX"      "RACE"     "ETHNIC"   "ARMCD"   
+[19] "ARM"      "ACTARMCD" "ACTARM"   "COUNTRY"  "DMDTC"    "DMDY"    
+[25] "TRT01P"   "TRT01A"   "TRTSDTM"  "TRTSTMF"  "TRTEDTM"  "TRTETMF" 
+[31] "TRTSDT"   "TRTEDT"   "TRTDURD"  "SCRFDT"   "EOSDT"    "EOSSTT"  
+[37] "FRVDT"    "RANDDT"   "DTHDT"    "DTHADY"   "LDDTHELD" "LSTALVDT"
+[43] "AGEGR1"   "SAFFL"    "RACEGR1"  "REGION1"  "LDDTHGR1" "DTH30FL" 
+[49] "DTHA30FL" "DTHB30FL"</code></pre>
+</div>
+</div>
+<p>And then select the desired variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr::select</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> adsl, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       STUDYID, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       USUBJID, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       ARM, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>       AGE, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>       SEX, </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>       RACE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 306 × 6
    STUDYID      USUBJID     ARM                    AGE SEX   RACE 
@@ -238,35 +247,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 10 CDISCPILOT01 01-701-1115 Xanomeline Low Dose     84 M     WHITE
 # … with 296 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr::select</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>adsl_select <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> adsl, STUDYID, USUBJID, ARM, AGE, SEX, RACE)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dplyr::select &amp; pipe</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 306 × 6
-   STUDYID      USUBJID     ARM                    AGE SEX   RACE 
-   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
- 1 CDISCPILOT01 01-701-1015 Placebo                 63 F     WHITE
- 2 CDISCPILOT01 01-701-1023 Placebo                 64 M     WHITE
- 3 CDISCPILOT01 01-701-1028 Xanomeline High Dose    71 M     WHITE
- 4 CDISCPILOT01 01-701-1033 Xanomeline Low Dose     74 M     WHITE
- 5 CDISCPILOT01 01-701-1034 Xanomeline High Dose    77 F     WHITE
- 6 CDISCPILOT01 01-701-1047 Placebo                 85 F     WHITE
- 7 CDISCPILOT01 01-701-1057 Screen Failure          59 F     WHITE
- 8 CDISCPILOT01 01-701-1097 Xanomeline Low Dose     68 M     WHITE
- 9 CDISCPILOT01 01-701-1111 Xanomeline Low Dose     81 F     WHITE
-10 CDISCPILOT01 01-701-1115 Xanomeline Low Dose     84 M     WHITE
-# … with 296 more rows</code></pre>
 </div>
-</div>
+<p>We end up with a new data-frame including only the selected variables. Note here that we do not save the resulting data-frame at the moment.</p>
 <p>There are also some helper functions to use within the <code>select</code> function of <code>dplyr</code>. <code>starts_with()</code> <code>ends_with()</code> <code>num_range()</code>. They allow us to select multiple columns sharing a naming structure. <code>num_range()</code> let’s us select consecutively numbered columns, e.g.: <code>num_range("example", 1:4)</code> would select the columns named: example1, example2, example3, example4.</p>
 <p>We can try out <code>starts_with()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">"trt"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(adsl,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       USUBJID, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">starts_with</span>(<span class="st">"trt"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 306 × 10
    USUBJID TRT01P TRT01A TRTSDTM             TRTSTMF TRTEDTM             TRTETMF
@@ -287,11 +275,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>And <code>ends_with()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in this df, all variables that contain dates end with "DT". </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We can select them:</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>         <span class="fu">ends_with</span>(<span class="st">"DT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in this df, all variables that contain dates end with "DT". </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We can select them:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(adsl,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>       USUBJID, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ends_with</span>(<span class="st">"DT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 306 × 9
    USUBJID     TRTSDT     TRTEDT     SCRFDT     EOSDT      FRVDT      RANDDT    
@@ -309,6 +297,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 # … with 296 more rows, and 2 more variables: DTHDT &lt;date&gt;, LSTALVDT &lt;date&gt;</code></pre>
 </div>
 </div>
+<p>If we want a data-frame that does not include any dates, we can make use of the minus sign in combination with the <code>ends_with()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(adsl,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>       <span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">"DT"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 306 × 42
+   STUDYID USUBJID SUBJID RFSTDTC RFENDTC RFXST…¹ RFXEN…² RFICDTC RFPEN…³ DTHDTC
+   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; 
+ 1 CDISCP… 01-701… 1015   2014-0… 2014-0… 2014-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+ 2 CDISCP… 01-701… 1023   2012-0… 2012-0… 2012-0… 2012-0… &lt;NA&gt;    2013-0… &lt;NA&gt;  
+ 3 CDISCP… 01-701… 1028   2013-0… 2014-0… 2013-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+ 4 CDISCP… 01-701… 1033   2014-0… 2014-0… 2014-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+ 5 CDISCP… 01-701… 1034   2014-0… 2014-1… 2014-0… 2014-1… &lt;NA&gt;    2014-1… &lt;NA&gt;  
+ 6 CDISCP… 01-701… 1047   2013-0… 2013-0… 2013-0… 2013-0… &lt;NA&gt;    2013-0… &lt;NA&gt;  
+ 7 CDISCP… 01-701… 1057   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    2013-1… &lt;NA&gt;  
+ 8 CDISCP… 01-701… 1097   2014-0… 2014-0… 2014-0… 2014-0… &lt;NA&gt;    2014-0… &lt;NA&gt;  
+ 9 CDISCP… 01-701… 1111   2012-0… 2012-0… 2012-0… 2012-0… &lt;NA&gt;    2013-0… &lt;NA&gt;  
+10 CDISCP… 01-701… 1115   2012-1… 2013-0… 2012-1… 2013-0… &lt;NA&gt;    2013-0… &lt;NA&gt;  
+# … with 296 more rows, 32 more variables: DTHFL &lt;chr&gt;, SITEID &lt;chr&gt;,
+#   AGE &lt;dbl&gt;, AGEU &lt;chr&gt;, SEX &lt;chr&gt;, RACE &lt;chr&gt;, ETHNIC &lt;chr&gt;, ARMCD &lt;chr&gt;,
+#   ARM &lt;chr&gt;, ACTARMCD &lt;chr&gt;, ACTARM &lt;chr&gt;, COUNTRY &lt;chr&gt;, DMDTC &lt;chr&gt;,
+#   DMDY &lt;dbl&gt;, TRT01P &lt;chr&gt;, TRT01A &lt;chr&gt;, TRTSDTM &lt;dttm&gt;, TRTSTMF &lt;chr&gt;,
+#   TRTEDTM &lt;dttm&gt;, TRTETMF &lt;chr&gt;, TRTDURD &lt;dbl&gt;, EOSSTT &lt;chr&gt;, DTHADY &lt;dbl&gt;,
+#   LDDTHELD &lt;dbl&gt;, AGEGR1 &lt;dbl&gt;, SAFFL &lt;chr&gt;, RACEGR1 &lt;chr&gt;, REGION1 &lt;chr&gt;,
+#   LDDTHGR1 &lt;chr&gt;, DTH30FL &lt;chr&gt;, DTHA30FL &lt;chr&gt;, DTHB30FL &lt;chr&gt;, and …</code></pre>
+</div>
+</div>
 <div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -321,8 +336,9 @@ Change order of variables
 <div class="callout-body-container callout-body">
 <p>We can use the <code>select()</code> function to reorder the variables in the data-frame. This does not affect the order of rows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ARM, USUBJID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(adsl,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>         ARM, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         USUBJID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 306 × 2
    ARM                  USUBJID    
@@ -358,14 +374,15 @@ x &amp; y            x AND y
 x %in% y         logical vector of length x with TRUE if element of x is in y </code></pre>
 <p>Within <code>filter</code>, we can chain logical vectors by separating them with a comma (<code>,</code>). Lets have a look at women older than 70:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># base:</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>adsl_filter <span class="ot">&lt;-</span> adsl_select[adsl_select<span class="sc">$</span>AGE<span class="sc">&gt;=</span><span class="dv">70</span> <span class="sc">&amp;</span> adsl_select<span class="sc">$</span>SEX<span class="sc">==</span><span class="st">"F"</span>, ]</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># select, filter, &amp; pipe:</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="fu">select</span>(adsl, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>              STUDYID, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>              USUBJID, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>              ARM, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>              AGE, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>              SEX, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>              RACE),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>       SEX <span class="sc">==</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 141 × 6
    STUDYID      USUBJID     ARM                    AGE SEX   RACE               
@@ -383,6 +400,7 @@ x %in% y         logical vector of length x with TRUE if element of x is in y </
 # … with 131 more rows</code></pre>
 </div>
 </div>
+<p>Now we have a reduced data frame with female patients over 70. However, the nested call is not very intuitive to read. If any more functions get added to this code, it becomes even less readable. That is where the pipe operator (<code>%&gt;%</code>) comes in.</p>
 <div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -393,49 +411,46 @@ pipe
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The pipe operator let us chain multiple <code>dplyr</code> commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. traditionally, we start a new line after every pipe operator.</p>
-<p>In base R we saved each step in a separate dataframe. Alternatively, we could have a very complicated and unreadable nested function call. Using the pipe syntax we can avoid both.</p>
+<p>The pipe operator let us chain multiple <code>dplyr</code> commands, so we can always forward the previously filtered / selected / arranged dataframe and keep working with it. The pipe operator let’s us write nested function calls in a sequential way. Traditionally, we start a new line after every pipe operator.</p>
 </div>
 </div>
-<p>Now we have a reduced data frame with female patients over 70.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adsl_filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select, filter, &amp; pipe:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> <span class="co"># This pipe forwards adsl to the select function as its first argument</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>         USUBJID,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         ARM, </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>         AGE, </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>         SEX, </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>         RACE) <span class="sc">%&gt;%</span> <span class="co"># this pipe forwards the selected variables to the filter function</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   STUDYID            USUBJID              ARM                 AGE       
- Length:141         Length:141         Length:141         Min.   :70.00  
- Class :character   Class :character   Class :character   1st Qu.:75.00  
- Mode  :character   Mode  :character   Mode  :character   Median :79.00  
-                                                          Mean   :78.82  
-                                                          3rd Qu.:83.00  
-                                                          Max.   :89.00  
-     SEX                RACE          
- Length:141         Length:141        
- Class :character   Class :character  
- Mode  :character   Mode  :character  
-                                      
-                                      
-                                      </code></pre>
-</div>
-</div>
-<p>This yielded the same result as the base R sequential code:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all.equal</span>(adsl_filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] TRUE</code></pre>
+<pre><code># A tibble: 141 × 6
+   STUDYID      USUBJID     ARM                    AGE SEX   RACE               
+   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              
+ 1 CDISCPILOT01 01-701-1034 Xanomeline High Dose    77 F     WHITE              
+ 2 CDISCPILOT01 01-701-1047 Placebo                 85 F     WHITE              
+ 3 CDISCPILOT01 01-701-1111 Xanomeline Low Dose     81 F     WHITE              
+ 4 CDISCPILOT01 01-701-1133 Xanomeline High Dose    81 F     WHITE              
+ 5 CDISCPILOT01 01-701-1146 Xanomeline High Dose    75 F     WHITE              
+ 6 CDISCPILOT01 01-701-1153 Placebo                 79 F     WHITE              
+ 7 CDISCPILOT01 01-701-1162 Screen Failure          82 F     WHITE              
+ 8 CDISCPILOT01 01-701-1181 Xanomeline High Dose    79 F     WHITE              
+ 9 CDISCPILOT01 01-701-1192 Xanomeline Low Dose     80 F     WHITE              
+10 CDISCPILOT01 01-701-1203 Placebo                 81 F     BLACK OR AFRICAN A…
+# … with 131 more rows</code></pre>
 </div>
 </div>
 <p>There is another inline operator which can be very useful within the filter function; <code>%in%</code>. With this operator, we can select rows based on a prespecified vector of values. This can be useful if there are specified values (e.g., specific <code>USUBJID</code>) which we would like to look at.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we randomly chose 4 USUBJID's:</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>lookup_ids <span class="ot">&lt;-</span> <span class="fu">sample</span>(adsl<span class="sc">$</span>USUBJID, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and then create a logical vector which returns TRUE for every entry in the </span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># USUBJID vector which are represented in the lookup_ids, and else FALSE</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>adsl<span class="sc">$</span>USUBJID <span class="sc">%in%</span> lookup_ids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we save 4 USUBJID's in a vector:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>lookup_ids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"01-716-1151"</span>, <span class="st">"01-710-1443"</span>, <span class="st">"01-708-1184"</span>, <span class="st">"01-705-1186"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and then create a logical vector which returns TRUE for every entry in the </span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># USUBJID vector which are represented in the lookup_ids, and else FALSE</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>adsl<span class="sc">$</span>USUBJID <span class="sc">%in%</span> lookup_ids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -445,37 +460,37 @@ pipe
  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[109] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
-[217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[217] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [229] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+[241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [253] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[265] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[265] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [277] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[289] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+[289] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [301] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this approach can be used in the filter function: </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(USUBJID <span class="sc">%in%</span> lookup_ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this approach can be used in the filter function: </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(USUBJID <span class="sc">%in%</span> lookup_ids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
-  STUDYID      USUBJID     ARM              AGE SEX   RACE 
-  &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
-1 CDISCPILOT01 01-705-1349 Placebo           86 F     WHITE
-2 CDISCPILOT01 01-710-1380 Screen Failure    80 F     WHITE
-3 CDISCPILOT01 01-715-1207 Placebo           78 F     WHITE
-4 CDISCPILOT01 01-718-1150 Placebo           73 F     WHITE</code></pre>
+  STUDYID      USUBJID     ARM                   AGE SEX   RACE 
+  &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1 CDISCPILOT01 01-705-1186 Placebo                84 F     WHITE
+2 CDISCPILOT01 01-708-1184 Screen Failure         70 F     WHITE
+3 CDISCPILOT01 01-710-1443 Screen Failure         88 F     WHITE
+4 CDISCPILOT01 01-716-1151 Xanomeline Low Dose    83 F     WHITE</code></pre>
 </div>
 </div>
 </section>
@@ -483,11 +498,11 @@ pipe
 <h3 class="anchored" data-anchor-id="arrange">arrange</h3>
 <p>We can sort the dataframe with the arrange() function. It allows the sorting based on multiple variables. Note that the order of arranging variables determines the sorting hierarchy, so in this example we first order by <code>AGE</code> and</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ARM, AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ARM, AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 141 × 6
    STUDYID      USUBJID     ARM       AGE SEX   RACE                     
@@ -507,11 +522,11 @@ pipe
 </div>
 <p>To sort by descending order, we can use the helper function <code>desc()</code> within <code>arrange()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ARM, <span class="fu">desc</span>(AGE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STUDYID, USUBJID, ARM, AGE, SEX, RACE) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;=</span> <span class="dv">70</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>         SEX <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ARM, <span class="fu">desc</span>(AGE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 141 × 6
    STUDYID      USUBJID     ARM       AGE SEX   RACE 
