@@ -7,7 +7,7 @@ editor: visual
 ## Setup
 
 ```{r, warning = FALSE, message = FALSE}
-library("tidyverse")
+library(tidyverse)
 library(admiral)
 library(admiral.test)
 library(dplyr)
@@ -39,13 +39,11 @@ ex %>%
   select(USUBJID, EXTRT, VISIT, EXSTDTC)
 ```
 
-
 Using `pivot_wider()` create a table that would shaped this way
 
 | USUBJID | EXTRT | BASELINE | WEEK 2 | WEEK 24 |
 |---------|-------|----------|--------|---------|
 | ...     | ...   | ...      | ...    | ...     |
-
 
 ```{r}
 #| code-fold: true
@@ -71,14 +69,12 @@ dm %>%
   select(USUBJID, RACE, SEX)
 ```
 
-
 Using `pivot_longer()` create a table that would shaped this way
 
 | USUBJID | VAR  | VAL   |
 |---------|------|-------|
-| 1001    | RACE | WHITE | 
+| 1001    | RACE | WHITE |
 | 1001    | SEX  | M     |
-
 
 ```{r}
 #| code-fold: true
@@ -94,15 +90,13 @@ dm %>%
 
 ## Joining using dplyr
 
-Load the `ds` data-frame from `admiral_ds` and `suppds` data-frame from `admiral_suppds`.
-Prior to joining the two datasets together, we may need to do some cleaning of the data on `suppds`. 
+Load the `ds` data-frame from `admiral_ds` and `suppds` data-frame from `admiral_suppds`. Prior to joining the two datasets together, we may need to do some cleaning of the data on `suppds`.
 
-- Filter IDVAR for "DSSEQ"
+-   Filter IDVAR for "DSSEQ"
 
-- Mutate IDVARVAL from type character to type numeric.
+-   Mutate IDVARVAL from type character to type numeric.
 
-- Select USUBJID IDVARVAL QNAM QLABEL QVAL
-
+-   Select USUBJID IDVARVAL QNAM QLABEL QVAL
 
 ```{r}
 #| code-fold: true

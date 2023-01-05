@@ -33,7 +33,7 @@ To get the desired shape of data, there are two useful functions from the `tidyr
 
 ## Setup
 
-```{r, echo = FALSE}
+```{r, message = FALSE, warning = FALSE}
 library(admiral)
 library(admiral.test)
 library(dplyr)
@@ -66,7 +66,7 @@ suppdm_long <- suppdm_wide %>%
 suppdm_long
 ```
 
-As you can see, as we pivoted back, we didn't come up with an exact\* duplicate of our original `suppdm` dataframe. This is because the default of `pivot_longer()` is **not** to drop `NA` values, which can be modified with the `values_drop_na` function input, just one of the many powerful additional function inputs from both of these pivoting functions. `pivot_wider()` and `pivot_longer()` were designed to handle a variety of situations when transposing data in the most flexible of ways.
+As you can see, as we pivoted back, we didn't come up with an *exact* duplicate of our original `suppdm` dataframe. This is because the default of `pivot_longer()` is **not** to drop `NA` values, which can be modified with the `values_drop_na` function input, just one of the many powerful additional function inputs from both of these pivoting functions. `pivot_wider()` and `pivot_longer()` were designed to handle a variety of situations when transposing data in the most flexible of ways.
 
 ```{r}
 suppdm_long <- suppdm_wide %>% 
