@@ -3,7 +3,7 @@ project:
   execute-dir: project
   
 execute:
-  freeze: false
+  freeze: true
 
 book:
   title: "Introduction to R for SAS programmers"
@@ -32,7 +32,5 @@ format:
   html:
     theme: cosmo
     css: styles.css
-  pdf:
-    documentclass: scrreprt
 editor: visual
 
