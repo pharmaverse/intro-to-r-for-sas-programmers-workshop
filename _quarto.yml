@@ -1,10 +1,10 @@
 project:
   type: book
   execute-dir: project
-  output-dir: docs
+  output-dir: _book
   
 execute:
-  freeze: true
+  freeze: false
 
 book:
   title: "Introduction to R for SAS programmers"

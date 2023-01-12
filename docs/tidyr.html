@@ -8,7 +8,7 @@
 
 <meta name="author" content="Zelos">
 
-<title>Introduction to R for SAS programmers - 6&nbsp; tidyr</title>
+<title>Introduction to R for SAS programmers - 7&nbsp; tidyr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">tidyr</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -163,14 +163,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./index.html" class="sidebar-item-text sidebar-link">About</a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./datatype_structure.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">dplyr</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">datatype &amp; structure</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -178,19 +173,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dplyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">dplyr</span></a>
+  <a href="./datatype_structure.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
+  <a href="./datatype_structure_exercise.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">mutate</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">dplyr</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -198,19 +193,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mutate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">mutate</span></a>
+  <a href="./dplyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mutate_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></a>
+  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">tidyr</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">mutate</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -218,12 +213,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidyr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">tidyr</span></a>
+  <a href="./mutate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">mutate</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
+  <a href="./mutate_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">tidyr</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
   </div>
 </li>
       </ul>
@@ -237,12 +252,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#transposing-data" id="toc-transposing-data" class="nav-link active" data-scroll-target="#transposing-data"><span class="toc-section-number">7</span>  Transposing Data</a>
+  <li><a href="#transposing-data" id="toc-transposing-data" class="nav-link active" data-scroll-target="#transposing-data"><span class="toc-section-number">8</span>  Transposing Data</a>
   <ul class="collapse">
-  <li><a href="#some-context" id="toc-some-context" class="nav-link" data-scroll-target="#some-context"><span class="toc-section-number">7.1</span>  Some Context</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">7.2</span>  Setup</a></li>
+  <li><a href="#some-context" id="toc-some-context" class="nav-link" data-scroll-target="#some-context"><span class="toc-section-number">8.1</span>  Some Context</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="toc-section-number">8.2</span>  Setup</a></li>
   </ul></li>
-  <li><a href="#relational-data-joins" id="toc-relational-data-joins" class="nav-link" data-scroll-target="#relational-data-joins"><span class="toc-section-number">8</span>  Relational Data (Joins)</a></li>
+  <li><a href="#relational-data-joins" id="toc-relational-data-joins" class="nav-link" data-scroll-target="#relational-data-joins"><span class="toc-section-number">9</span>  Relational Data (Joins)</a></li>
   </ul>
 </nav>
     </div>
@@ -251,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">tidyr</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr</span></h1>
 </div>
 
 
@@ -272,10 +287,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="transposing-data" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Transposing Data</h1>
-<section id="some-context" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="some-context"><span class="header-section-number">7.1</span> Some Context</h2>
+<section id="transposing-data" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Transposing Data</h1>
+<section id="some-context" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="some-context"><span class="header-section-number">8.1</span> Some Context</h2>
 <p>As we know, data can often be represented in several ways. Multiple observations of a variable can be organized by rows or by columns.</p>
 <p>Table A.</p>
 <table class="table">
@@ -334,8 +349,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When observations are spread along a row as multiple columns, we refer to the data as being in “wide” format (See Table A). When observations are spread along a column as multiple rows, we refer to the data as being in “long” format (See Table B). SDTM data for the most part generally adheres to the “long” structure, but as programmers we need to know how to work with both to suit our needs.</p>
 <p>To get the desired shape of data, there are two useful functions from the <code>tidyr</code> package to make this transformation, aptly named: <code>pivot_longer()</code> and <code>pivot_wider()</code> . These can be seen as the R-equivalent of <code>proc transpose</code> in SAS.</p>
 </section>
-<section id="setup" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="setup"><span class="header-section-number">7.2</span> Setup</h2>
+<section id="setup" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="setup"><span class="header-section-number">8.2</span> Setup</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral.test)</span>
@@ -437,8 +452,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Bonus Trick: The <code>names_to</code>/<code>values_to</code> function arguments can prove to be helpful as a renaming step during the data cleaning process too!</p>
 </section>
 </section>
-<section id="relational-data-joins" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Relational Data (Joins)</h1>
+<section id="relational-data-joins" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Relational Data (Joins)</h1>
 <p>When a pair of tables need to be joined together, we have a variety of functions that can achieve such a task:</p>
 <ul>
 <li><p><code>left_join()</code></p></li>
@@ -629,12 +644,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./mutate_exercises.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./tidyr_exercises.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr exercises</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

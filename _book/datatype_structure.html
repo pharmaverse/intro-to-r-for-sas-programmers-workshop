@@ -8,7 +8,7 @@
 
 <meta name="author" content="Sadchla">
 
-<title>datatype and structure</title>
+<title>Introduction to R for SAS programmers - 1&nbsp; datatype and structure</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -87,29 +87,192 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="datatype_structure_files/libs/clipboard/clipboard.min.js"></script>
-<script src="datatype_structure_files/libs/quarto-html/quarto.js"></script>
-<script src="datatype_structure_files/libs/quarto-html/popper.min.js"></script>
-<script src="datatype_structure_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="datatype_structure_files/libs/quarto-html/anchor.min.js"></script>
-<link href="datatype_structure_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="datatype_structure_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="datatype_structure_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="datatype_structure_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="datatype_structure_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./datatype_structure_exercise.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to R for SAS programmers</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">datatype &amp; structure</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datatype_structure.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datatype_structure_exercise.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">dplyr</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dplyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">mutate</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mutate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">mutate</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mutate_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">tidyr</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#coding-basics" id="toc-coding-basics" class="nav-link active" data-scroll-target="#coding-basics"><span class="toc-section-number">2</span>  Coding basics</a>
+  <ul class="collapse">
+  <li><a href="#r-as-a-calculator" id="toc-r-as-a-calculator" class="nav-link" data-scroll-target="#r-as-a-calculator"><span class="toc-section-number">2.1</span>  R as a calculator</a></li>
+  </ul></li>
+  <li><a href="#store-outputs" id="toc-store-outputs" class="nav-link" data-scroll-target="#store-outputs"><span class="toc-section-number">3</span>  store outputs</a></li>
+  <li><a href="#load-data-into-r" id="toc-load-data-into-r" class="nav-link" data-scroll-target="#load-data-into-r"><span class="toc-section-number">4</span>  Load data into R</a></li>
+  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><span class="toc-section-number">5</span>  R Packages</a></li>
+  <li><a href="#installing-an-r-packages" id="toc-installing-an-r-packages" class="nav-link" data-scroll-target="#installing-an-r-packages"><span class="toc-section-number">6</span>  Installing an R packages</a></li>
+  <li><a href="#using-r-package-functions-from-an-r-package-and-accessing-help-page" id="toc-using-r-package-functions-from-an-r-package-and-accessing-help-page" class="nav-link" data-scroll-target="#using-r-package-functions-from-an-r-package-and-accessing-help-page"><span class="toc-section-number">7</span>  Using R package, functions from an R package, and accessing help page</a></li>
+  <li><a href="#datatype" id="toc-datatype" class="nav-link" data-scroll-target="#datatype"><span class="toc-section-number">8</span>  Datatype</a></li>
+  <li><a href="#date-formats" id="toc-date-formats" class="nav-link" data-scroll-target="#date-formats"><span class="toc-section-number">9</span>  Date formats</a></li>
+  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure"><span class="toc-section-number">10</span>  Structure</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">datatype and structure</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></h1>
 </div>
 
 
@@ -130,10 +293,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="coding-basics" class="level1">
-<h1>Coding basics</h1>
-<section id="r-as-a-calculator" class="level2">
-<h2 class="anchored" data-anchor-id="r-as-a-calculator">R as a calculator</h2>
+<section id="coding-basics" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Coding basics</h1>
+<section id="r-as-a-calculator" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="r-as-a-calculator"><span class="header-section-number">2.1</span> R as a calculator</h2>
 <p>R can be used as a calculator following the order of operations using the basic arithmetic operators, although, the arithmetic equal sign (<code>=</code>) in the equivalent of <code>==</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simple calculations </span></span>
@@ -153,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="store-outputs" class="level1">
-<h1>store outputs</h1>
+<section id="store-outputs" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> store outputs</h1>
 <p>An object can be created to assign the value of your operation to a specific variable name, which can be reused later in the R session. Using the <code>object_name &lt;- value</code> naming convention, you can assign (<code>&lt;-</code>) the value (<code>(59 + 73 + 2) / 3</code>) to an <code>object_name</code> simple_cal to look like <code>simple_cal &lt;-(59 + 73 + 2) / 3</code> to store the evaluation of that calculation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
@@ -164,8 +327,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>simple_cal <span class="ot">&lt;-</span>(<span class="dv">59</span> <span class="sc">+</span> <span class="dv">73</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-data-into-r" class="level1">
-<h1>Load data into R</h1>
+<section id="load-data-into-r" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Load data into R</h1>
 <p>Depending on the formats for the files containing your data, we can use different base R functions to read and load data into memory</p>
 <p>R has two native data formats, <strong>Rdata</strong> (sometimes call Rda) and <strong>RDS</strong>.</p>
 <p><strong>Rdata</strong> can be selected R objects or a workspace, and <strong>RDS</strong> are single R object. R has base functions available to read the two native data formats, and some delimited files.</p>
@@ -203,12 +366,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>adsl_TAB <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/save_data/adsl.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="r-packages" class="level1">
-<h1>R Packages</h1>
+<section id="r-packages" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> R Packages</h1>
 <p>R packages are a collection of reusable functions, compiled codes,documentation, sample data and tests. Some formats of data require the use of an R package in order to load that data into memory. Shareable R packages are typically stored in a repository such as the Comprehensive R Archive Network (CRAN), Bioconductor, and GitHub.</p>
 </section>
-<section id="installing-an-r-packages" class="level1">
-<h1>Installing an R packages</h1>
+<section id="installing-an-r-packages" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Installing an R packages</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From CRAN</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("insert_package_name")</span></span>
@@ -223,8 +386,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"pharmaverse/admiral"</span>, <span class="at">ref =</span> <span class="st">"devel"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="using-r-package-functions-from-an-r-package-and-accessing-help-page" class="level1">
-<h1>Using R package, functions from an R package, and accessing help page</h1>
+<section id="using-r-package-functions-from-an-r-package-and-accessing-help-page" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Using R package, functions from an R package, and accessing help page</h1>
 <p>Since an R packages are a collection of functions, you can choose to load the entire package within R memory or just the needed function from that package. Usually, the order you choose to load your package does not make a difference, unless you are loading two or more packages that has functions with the same name. If you are loading two or more packages with common function name, then the package loaded last will hide that function in the earlier packages, so in that case is important to note the order you choose to load the packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read file using ::</span></span>
@@ -242,8 +405,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># within the read_excel() function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="datatype" class="level1">
-<h1>Datatype</h1>
+<section id="datatype" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Datatype</h1>
 <p>R has different types of <strong>Datatype</strong><br>
 * Integer * numeric * Character * Logical * complex * raw</p>
 <p>But we will focus on the top 4.</p>
@@ -279,8 +442,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="date-formats" class="level1">
-<h1>Date formats</h1>
+<section id="date-formats" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Date formats</h1>
 <p>There are base R functions that can be used to format a date object similar to the Date9 formatted date variable from SAS. In addition, there are R packages available, such as {lubridate}, for more complex date/date time formatted objects.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using adsl_sas1 RFSTDTC</span></span>
@@ -316,8 +479,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="structure" class="level1">
-<h1>Structure</h1>
+<section id="structure" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Structure</h1>
 <p>Data structures are dimensional ways of organizing the data. There are different data structures in R, let’s focus on <strong>vectors</strong> and <strong>dataframe</strong></p>
 <p><strong>Vectors</strong> are 1 dimensional collection of data that can contain one or more element of the same data type</p>
 <div class="cell">
@@ -365,10 +528,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  Max.   :65.0   Max.   :5                                     </code></pre>
 </div>
 </div>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -502,6 +666,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">About</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./datatype_structure_exercise.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

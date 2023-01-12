@@ -8,7 +8,7 @@
 
 <meta name="author" content="Stefan">
 
-<title>Introduction to R for SAS programmers - 2&nbsp; dplyr</title>
+<title>Introduction to R for SAS programmers - 3&nbsp; dplyr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,7 +95,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./dplyr_exercises.html" rel="next">
-<link href="./datatype_structure.html" rel="prev">
+<link href="./datatype_structure_exercise.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">dplyr</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -163,14 +163,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./index.html" class="sidebar-item-text sidebar-link">About</a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./datatype_structure.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">dplyr</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">datatype &amp; structure</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -178,19 +173,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dplyr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">dplyr</span></a>
+  <a href="./datatype_structure.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
+  <a href="./datatype_structure_exercise.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">mutate</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">dplyr</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -198,19 +193,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mutate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">mutate</span></a>
+  <a href="./dplyr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mutate_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></a>
+  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">tidyr</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">mutate</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -218,12 +213,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">tidyr</span></a>
+  <a href="./mutate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">mutate</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
+  <a href="./mutate_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">tidyr</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
   </div>
 </li>
       </ul>
@@ -237,13 +252,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">2.1</span>  Setup</a></li>
-  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr"><span class="toc-section-number">2.2</span>  <code>dplyr</code></a></li>
-  <li><a href="#datawrangling" id="toc-datawrangling" class="nav-link" data-scroll-target="#datawrangling"><span class="toc-section-number">2.3</span>  Datawrangling</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">3.1</span>  Setup</a></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr"><span class="toc-section-number">3.2</span>  <code>dplyr</code></a></li>
+  <li><a href="#datawrangling" id="toc-datawrangling" class="nav-link" data-scroll-target="#datawrangling"><span class="toc-section-number">3.3</span>  Datawrangling</a>
   <ul class="collapse">
-  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="toc-section-number">2.3.1</span>  select</a></li>
-  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="toc-section-number">2.3.2</span>  filter</a></li>
-  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="toc-section-number">2.3.3</span>  arrange</a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="toc-section-number">3.3.1</span>  select</a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="toc-section-number">3.3.2</span>  filter</a></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="toc-section-number">3.3.3</span>  arrange</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -253,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">dplyr</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></h1>
 </div>
 
 
@@ -274,8 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="setup" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">2.1</span> Setup</h2>
+<section id="setup" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">3.1</span> Setup</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("https://github.com/pharmaverse/admiral")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(admiral)</span></span>
@@ -318,8 +333,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="dplyr" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="dplyr"><span class="header-section-number">2.2</span> <code>dplyr</code></h2>
+<section id="dplyr" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="dplyr"><span class="header-section-number">3.2</span> <code>dplyr</code></h2>
 <p><code>dplyr</code> is a package which is part of the tidyverse. <code>dplyr</code> helps us handle data. In R, we generally work with data-sets. With <code>dplyr</code> we can easily select variables, filter specific rows, sort data-sets based on variable values and much more.</p>
 <p><code>dplyr</code> is not strictly needed for any of that, everything can be done in base R. However, <code>dplyr</code> provides a framework to write readable code and a pipeline to work efficiently.</p>
 <!-- The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example: -->
@@ -342,11 +357,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ``` -->
 <!-- However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function. -->
 </section>
-<section id="datawrangling" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="datawrangling"><span class="header-section-number">2.3</span> Datawrangling</h2>
+<section id="datawrangling" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="datawrangling"><span class="header-section-number">3.3</span> Datawrangling</h2>
 <p>There are various functions within <code>dplyr</code> for datawrangling which follow a consistent structure. The first input of the most used dplyr functions is the data-frame. Then follow arguments specifying the behaviour of the function. Compared to the base r syntax we do not have to write column / variable names in quotation marks; <code>dplyr</code> syntax lets us refer to columns within a data-frame without the need to always reference the dataframe of origin.</p>
-<section id="select" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="select"><span class="header-section-number">2.3.1</span> select</h3>
+<section id="select" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="select"><span class="header-section-number">3.3.1</span> select</h3>
 <p>The <code>select</code> function lets us select all variables mentioned in the arguments (and drops all other variables). Alternatively, we can selectively drop variables if we place a minus (<code>-</code>) in front of the variable name.<br>
 We can first have a look at all variable names of the data-frame:</p>
 <div class="cell">
@@ -501,8 +516,8 @@ Change order of variables
 </div>
 </div>
 </section>
-<section id="filter" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="filter"><span class="header-section-number">2.3.2</span> filter</h3>
+<section id="filter" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="filter"><span class="header-section-number">3.3.2</span> filter</h3>
 <p>The <code>filter</code> function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame. This time, we first save the reduced (selected) data-frame and use that as the first argument to <code>filter</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>selected_data <span class="ot">&lt;-</span> <span class="fu">select</span>(adsl, </span>
@@ -641,8 +656,8 @@ pipe
 </div>
 <p>Note that within the <code>filter</code> function (and in all major <code>dplyr</code> functions) R looks for the requested variables first within the supplied data-frame and afterwards in the global environment.</p>
 </section>
-<section id="arrange" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="arrange"><span class="header-section-number">2.3.3</span> arrange</h3>
+<section id="arrange" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="arrange"><span class="header-section-number">3.3.3</span> arrange</h3>
 <p>We can sort the dataframe with the arrange() function. It allows the sorting based on multiple variables. Note that the order of arranging variables determines the sorting hierarchy, so in this example we first order by <code>AGE</code> and</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a> adsl <span class="sc">%&gt;%</span> </span>
@@ -832,13 +847,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./datatype_structure.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></span>
+      <a href="./datatype_structure_exercise.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./dplyr_exercises.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr exercises</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to R for SAS programmers - 8&nbsp; tidyr exercises</title>
+<title>Introduction to R for SAS programmers - 2&nbsp; datatype_structure_exercise</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./tidyr.html" rel="prev">
+<link href="./dplyr.html" rel="next">
+<link href="./datatype_structure.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -176,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datatype_structure_exercise.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></a>
+  <a href="./datatype_structure_exercise.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></a>
   </div>
 </li>
       </ul>
@@ -236,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
+  <a href="./tidyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></a>
   </div>
 </li>
       </ul>
@@ -250,9 +251,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">8.1</span>  Setup</a></li>
-  <li><a href="#pivoting-with-tidyr" id="toc-pivoting-with-tidyr" class="nav-link" data-scroll-target="#pivoting-with-tidyr"><span class="toc-section-number">8.2</span>  Pivoting with tidyr</a></li>
-  <li><a href="#joining-using-dplyr" id="toc-joining-using-dplyr" class="nav-link" data-scroll-target="#joining-using-dplyr"><span class="toc-section-number">8.3</span>  Joining using dplyr</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link active" data-scroll-target="#exercise-1"><span class="toc-section-number">3</span>  Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">4</span>  Exercise 2</a></li>
   </ul>
 </nav>
     </div>
@@ -261,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">tidyr exercises</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">datatype_structure_exercise</span></h1>
 </div>
 
 
@@ -276,229 +276,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="setup" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">8.1</span> Setup</h2>
+<section id="exercise-1" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Exercise 1</h1>
+<p>Install and load the following packages</p>
+<p><strong>{tidyverse}</strong> <strong>{admiral}</strong> <strong>{dplyr}</strong> <strong>{tidyr}</strong> <strong>{admiral.test}</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral.test)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> admiral_ex</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dm <span class="ot">&lt;-</span> admiral_dm</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> admiral_ds</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>suppds <span class="ot">&lt;-</span> admiral_suppds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Show solution</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#installing the packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"admiral"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(admiral.test)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
-<section id="pivoting-with-tidyr" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="pivoting-with-tidyr"><span class="header-section-number">8.2</span> Pivoting with tidyr</h2>
-<p>Load the <code>ex</code> data-frame from <code>admiral_ex</code>and select the following variables:</p>
-<ul>
-<li><p>USUBJID</p></li>
-<li><p>EXTRT</p></li>
-<li><p>VISIT</p></li>
-<li><p>EXSTDTC</p></li>
-</ul>
+<section id="exercise-2" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Exercise 2</h1>
+<p>Import <code>adsl.sas7bdat</code> as adsl</p>
 <div class="cell">
 <details>
 <summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ex <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, EXTRT, VISIT, EXSTDTC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span>  haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">"data/adsl.sas7bdat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 591 × 4
-   USUBJID     EXTRT      VISIT    EXSTDTC   
-   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     
- 1 01-701-1015 PLACEBO    BASELINE 2014-01-02
- 2 01-701-1015 PLACEBO    WEEK 2   2014-01-17
- 3 01-701-1015 PLACEBO    WEEK 24  2014-06-19
- 4 01-701-1023 PLACEBO    BASELINE 2012-08-05
- 5 01-701-1023 PLACEBO    WEEK 2   2012-08-28
- 6 01-701-1028 XANOMELINE BASELINE 2013-07-19
- 7 01-701-1028 XANOMELINE WEEK 2   2013-08-02
- 8 01-701-1028 XANOMELINE WEEK 24  2014-01-07
- 9 01-701-1033 XANOMELINE BASELINE 2014-03-18
-10 01-701-1034 XANOMELINE BASELINE 2014-07-01
-# … with 581 more rows</code></pre>
-</div>
-</div>
-<p>Using <code>pivot_wider()</code> create a table that would shaped this way</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>USUBJID</th>
-<th>EXTRT</th>
-<th>BASELINE</th>
-<th>WEEK 2</th>
-<th>WEEK 24</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>…</td>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-</tr>
-</tbody>
-</table>
-<div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ex <span class="sc">%&gt;%</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, EXTRT, VISIT, EXSTDTC) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"VISIT"</span>, <span class="at">values_from =</span> <span class="st">"EXSTDTC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 254 × 5
-   USUBJID     EXTRT      BASELINE   `WEEK 2`   `WEEK 24` 
-   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     
- 1 01-701-1015 PLACEBO    2014-01-02 2014-01-17 2014-06-19
- 2 01-701-1023 PLACEBO    2012-08-05 2012-08-28 &lt;NA&gt;      
- 3 01-701-1028 XANOMELINE 2013-07-19 2013-08-02 2014-01-07
- 4 01-701-1033 XANOMELINE 2014-03-18 &lt;NA&gt;       &lt;NA&gt;      
- 5 01-701-1034 XANOMELINE 2014-07-01 2014-07-16 2014-12-18
- 6 01-701-1047 PLACEBO    2013-02-12 2013-02-26 &lt;NA&gt;      
- 7 01-701-1097 XANOMELINE 2014-01-01 2014-01-16 2014-06-19
- 8 01-701-1111 XANOMELINE 2012-09-07 &lt;NA&gt;       &lt;NA&gt;      
- 9 01-701-1115 XANOMELINE 2012-11-30 2012-12-14 &lt;NA&gt;      
-10 01-701-1118 PLACEBO    2014-03-12 2014-03-27 2014-08-28
-# … with 244 more rows</code></pre>
-</div>
-</div>
-<p>Load the <code>dm</code> data-frame from <code>admiral_dm</code>and select the following variables:</p>
-<ul>
-<li><p>USUBJID</p></li>
-<li><p>RACE</p></li>
-<li><p>SEX</p></li>
-</ul>
-<div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, RACE, SEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 306 × 3
-   USUBJID     RACE  SEX  
-   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;
- 1 01-701-1015 WHITE F    
- 2 01-701-1023 WHITE M    
- 3 01-701-1028 WHITE M    
- 4 01-701-1033 WHITE M    
- 5 01-701-1034 WHITE F    
- 6 01-701-1047 WHITE F    
- 7 01-701-1057 WHITE F    
- 8 01-701-1097 WHITE M    
- 9 01-701-1111 WHITE F    
-10 01-701-1115 WHITE M    
-# … with 296 more rows</code></pre>
-</div>
-</div>
-<p>Using <code>pivot_longer()</code> create a table that would shaped this way</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>USUBJID</th>
-<th>VAR</th>
-<th>VAL</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1001</td>
-<td>RACE</td>
-<td>WHITE</td>
-</tr>
-<tr class="even">
-<td>1001</td>
-<td>SEX</td>
-<td>M</td>
-</tr>
-</tbody>
-</table>
-<div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, RACE, SEX) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(RACE, SEX),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"VAR"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"VAL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 612 × 3
-   USUBJID     VAR   VAL  
-   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;
- 1 01-701-1015 RACE  WHITE
- 2 01-701-1015 SEX   F    
- 3 01-701-1023 RACE  WHITE
- 4 01-701-1023 SEX   M    
- 5 01-701-1028 RACE  WHITE
- 6 01-701-1028 SEX   M    
- 7 01-701-1033 RACE  WHITE
- 8 01-701-1033 SEX   M    
- 9 01-701-1034 RACE  WHITE
-10 01-701-1034 SEX   F    
-# … with 602 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="joining-using-dplyr" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="joining-using-dplyr"><span class="header-section-number">8.3</span> Joining using dplyr</h2>
-<p>Load the <code>ds</code> data-frame from <code>admiral_ds</code> and <code>suppds</code> data-frame from <code>admiral_suppds</code>. Prior to joining the two datasets together, we may need to do some cleaning of the data on <code>suppds</code>.</p>
-<ul>
-<li><p>Filter IDVAR for “DSSEQ”</p></li>
-<li><p>Mutate IDVARVAL from type character to type numeric.</p></li>
-<li><p>Select USUBJID IDVARVAL QNAM QLABEL QVAL</p></li>
-</ul>
-<div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>suppds <span class="ot">&lt;-</span> suppds <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IDVAR <span class="sc">==</span> <span class="st">"DSSEQ"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IDVARVAL =</span> <span class="fu">as.numeric</span>(IDVARVAL)) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, IDVARVAL, QNAM, QLABEL, QVAL)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>suppds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 5
-  USUBJID     IDVARVAL QNAM    QLABEL                          QVAL 
-  &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                           &lt;chr&gt;
-1 01-703-1175        2 ENTCRIT PROTOCOL ENTRY CRITERIA NOT MET 16   
-2 01-705-1382        2 ENTCRIT PROTOCOL ENTRY CRITERIA NOT MET 25   
-3 01-708-1372        3 ENTCRIT PROTOCOL ENTRY CRITERIA NOT MET 16   </code></pre>
-</div>
-</div>
-<p>Join the two tables together using <code>USUBJID</code> and <code>DSSEQ</code> as the key joining variables.</p>
-<div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ds <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(suppds, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"USUBJID"</span> <span class="ot">=</span> <span class="st">"USUBJID"</span>, <span class="st">"DSSEQ"</span> <span class="ot">=</span> <span class="st">"IDVARVAL"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 850 × 16
-   STUDYID  DOMAIN USUBJID DSSEQ DSSPID DSTERM DSDECOD DSCAT VISIT…¹ VISIT DSDTC
-   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
- 1 CDISCPI… DS     01-701…     1 &lt;NA&gt;   RANDO… RANDOM… PROT…       3 BASE… 2014…
- 2 CDISCPI… DS     01-701…     2 &lt;NA&gt;   PROTO… COMPLE… DISP…      13 WEEK… 2014…
- 3 CDISCPI… DS     01-701…     3 &lt;NA&gt;   FINAL… FINAL … OTHE…      13 WEEK… 2014…
- 4 CDISCPI… DS     01-701…     1 &lt;NA&gt;   RANDO… RANDOM… PROT…       3 BASE… 2012…
- 5 CDISCPI… DS     01-701…     2 24     ADVER… ADVERS… DISP…       5 WEEK… 2012…
- 6 CDISCPI… DS     01-701…     3 &lt;NA&gt;   FINAL… FINAL … OTHE…       5 WEEK… 2012…
- 7 CDISCPI… DS     01-701…     4 &lt;NA&gt;   FINAL… FINAL … OTHE…     201 RETR… 2013…
- 8 CDISCPI… DS     01-701…     1 &lt;NA&gt;   RANDO… RANDOM… PROT…       3 BASE… 2013…
- 9 CDISCPI… DS     01-701…     2 &lt;NA&gt;   PROTO… COMPLE… DISP…      13 WEEK… 2014…
-10 CDISCPI… DS     01-701…     3 &lt;NA&gt;   FINAL… FINAL … OTHE…      13 WEEK… 2014…
-# … with 840 more rows, 5 more variables: DSSTDTC &lt;chr&gt;, DSSTDY &lt;dbl&gt;,
-#   QNAM &lt;chr&gt;, QLABEL &lt;chr&gt;, QVAL &lt;chr&gt;, and abbreviated variable name
-#   ¹​VISITNUM</code></pre>
-</div>
 </div>
 
 
@@ -640,11 +443,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tidyr.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">tidyr</span></span>
+      <a href="./datatype_structure.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">datatype and structure</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./dplyr.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
