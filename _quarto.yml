@@ -1,7 +1,7 @@
 project:
   type: book
   execute-dir: project
-  output-dir: _book
+  output-dir: docs
   
 execute:
   freeze: false
