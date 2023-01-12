@@ -1,0 +1,3 @@
+# About {.unnumbered}
+
+On this page you find the materials for the workshop *Introduction to R for SAS programmers*.

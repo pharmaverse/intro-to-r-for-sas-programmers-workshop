@@ -74,6 +74,7 @@ R packages are a collection of reusable functions, compiled codes,documentation,
 # Installing an R packages
 
 ```{r}
+#| eval: false
 # From CRAN
 #install.packages("insert_package_name")
 # {haven} is used to import or export foreign statistical format files (SPSS, Stata, SAS)
@@ -109,7 +110,7 @@ adsl_sas2 <- read_sas("data/adsl.sas7bdat")
 
 # Datatype
 
-R has different types of **Datatype** \
+R has different types of **Datatype**\
 \* Integer \* numeric \* Character \* Logical \* complex \* raw
 
 But we will focus on the top 4.
@@ -176,4 +177,3 @@ str(df)
 summary(df)
 
 ```
-

@@ -102,6 +102,7 @@ head(dm_suppdm)
 ```
 
 The join can also be completed with different column names as long as you define the join-key relationship, demonstrated below:
+
 ```{r}
 dummy1 <- data.frame(STUDYID = c("TRIALX", "TRIALX"),
                      USUBJID = c("1001", "1002"),

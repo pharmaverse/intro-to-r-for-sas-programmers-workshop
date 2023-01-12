@@ -1,0 +1,38 @@
+project:
+  type: book
+  execute-dir: project
+  
+execute:
+  freeze: false
+
+book:
+  title: "Introduction to R for SAS programmers"
+  author: "Sadchla Mascary, Stefan Thoma,\n Zelos Zhu, Thomas Neitman"
+  date: today
+  date-format: short
+  chapters:
+    - index.qmd   
+    - datatype_structure.qmd
+    - part: "dplyr"
+      chapters: 
+        - dplyr.qmd
+        - dplyr_exercises.qmd
+    - part: "mutate"
+      chapters: 
+        - mutate.qmd
+        - mutate_exercises.qmd
+    - part: "tidyr"
+      chapters: 
+        - tidyr.qmd
+        - tidyr_exercises.qmd
+
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+  pdf:
+    documentclass: scrreprt
+editor: visual
+
