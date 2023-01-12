@@ -1,0 +1,38 @@
+---
+title: "datatype_structure_exercise"
+format: html
+editor: visual
+---
+
+
+# Exercise 1
+
+Install and load the following packages
+
+**{tidyverse}**
+**{admiral}**
+**{dplyr}**
+**{tidyr}**
+**{admiral.test}**
+```{r  eval=FALSE}
+#| code-fold: true
+#| code-summary: "Show solution"
+
+#installing the packages
+install.packages(c("tidyverse", "admiral", "dplyr", "tidyr"))
+
+library(tidyverse)
+library(admiral)
+library(admiral.test)
+library(dplyr)
+library(tidyr)
+```
+
+
+# Exercise 2
+Import  `adsl.sas7bdat` as adsl
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+adsl <-  haven::read_sas("data/adsl.sas7bdat")
+```
