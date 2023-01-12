@@ -68,6 +68,16 @@ NA < 9
 NA == 0
 ```
 
+This is the same when using `if_else()`.
+
+```{r}
+adsl$AGE[1] <- NA
+dm %>% 
+  mutate(AGEGR = if_else(AGE >= 65, "Elderly", "Adult")) %>% 
+  select(USUBJID, AGE, AGEGR)
+  
+```
+
 To check whether a value is missing use the `is.na()` function.
 
 ```{r}
@@ -101,11 +111,9 @@ adsl %>%
   select(USUBJID, AGE, AGEGR1)
 ```
 
-The final condition `TRUE` is the is a catch all term and must be used with some caution. Consider what happens when we set the `AGE` of the first subject to `NA`.
+The final condition `TRUE` is the is a catch all term and must be used with some caution. Consider what happens for the `AGE` of the first subject whose value we set to `NA` above.
 
 ```{r}
-adsl$AGE[1] <- NA
-
 adsl %>% 
   mutate(
     AGEGR1 = case_when(
