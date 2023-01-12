@@ -21,6 +21,8 @@ A treatment emergent adverse event is defined as an adverse event whose start da
 *Hint*: Turn the `--DTC` variables into proper dates first using the `ymd()` function.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
 ae %>% 
   mutate(
     ASTDT = ymd(AESTDTC),
