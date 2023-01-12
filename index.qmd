@@ -1,3 +1,13 @@
 # About {.unnumbered}
 
 On this page you find the materials for the workshop *Introduction to R for SAS programmers*.
+
+
+[![Cheatsheet for the transition from SAS to R and vice versa.](sas-r.pdf)](https://posit.co/wp-content/uploads/2022/10/sas-r.pdf)
+
+
+
+## Further material
+
+You can't get enough? 
+[Here is a resource to help transitioning from SAS to R](https://bayer-group.github.io/sas2r/). 

@@ -29,12 +29,13 @@ book:
       chapters: 
         - tidyr.qmd
         - tidyr_exercises.qmd
-
-
-
+  downloads: pdf
+  
 format:
   html:
     theme: cosmo
     css: styles.css
+  pdf:
+    documentclass: scrreprt
 editor: visual
 
