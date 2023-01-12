@@ -13,7 +13,10 @@ book:
   date-format: short
   chapters:
     - index.qmd   
-    - datatype_structure.qmd
+    - part: "datatype & structure"
+      chapters: 
+        - datatype_structure.qmd
+        - datatype_structure_exercise.qmd 
     - part: "dplyr"
       chapters: 
         - dplyr.qmd

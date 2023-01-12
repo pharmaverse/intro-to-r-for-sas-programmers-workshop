@@ -1,0 +1,16 @@
+{
+  "hash": "a2c591a24d6e3e250053b42e27d1e330",
+  "result": {
+    "markdown": "---\ntitle: \"datatype_structure_exercise\"\nformat: html\neditor: visual\n---\n\n\n\n# Exercise 1\n\nInstall and load the following packages\n\n**{tidyverse}**\n**{admiral}**\n**{dplyr}**\n**{tidyr}**\n**{admiral.test}**\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"true\" code-summary=\"Show solution\"}\n#installing the packages\ninstall.packages(c(\"tidyverse\", \"admiral\", \"dplyr\", \"tidyr\"))\n\nlibrary(tidyverse)\nlibrary(admiral)\nlibrary(admiral.test)\nlibrary(dplyr)\nlibrary(tidyr)\n```\n:::\n\n\n\n# Exercise 2\nImport  `adsl.sas7bdat` as adsl\n\n::: {.cell}\n\n```{.r .cell-code  code-fold=\"true\" code-summary=\"Show solution\"}\nadsl <-  haven::read_sas(\"data/adsl.sas7bdat\")\n```\n:::\n",
+    "supporting": [
+      "datatype_structure_exercise_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
