@@ -1,5 +1,5 @@
 ---
-title: "tidyr_exercises"
+title: "tidyr exercises"
 format: html
 editor: visual
 ---
@@ -50,7 +50,7 @@ Using `pivot_wider()` create a table that would shaped this way
 #| code-summary: "Show solution"
 ex %>% 
   select(USUBJID, EXTRT, VISIT, EXSTDTC) %>% 
-  pivot_wider(., names_from = "VISIT", values_from = "EXSTDTC")
+  pivot_wider(names_from = "VISIT", values_from = "EXSTDTC")
 
 ```
 
@@ -81,8 +81,7 @@ Using `pivot_longer()` create a table that would shaped this way
 #| code-summary: "Show solution"
 dm %>% 
   select(USUBJID, RACE, SEX) %>% 
-  pivot_longer(., 
-               cols = c(RACE, SEX),
+  pivot_longer(cols = c(RACE, SEX),
                names_to = "VAR",
                values_to = "VAL")
 
@@ -116,5 +115,5 @@ Join the two tables together using `USUBJID` and `DSSEQ` as the key joining vari
 #| code-fold: true
 #| code-summary: "Show solution"
 ds %>% 
-  left_join(., suppds, by = c("USUBJID" = "USUBJID", "DSSEQ" = "IDVARVAL"))
+  left_join(suppds, by = c("USUBJID" = "USUBJID", "DSSEQ" = "IDVARVAL"))
 ```

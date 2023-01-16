@@ -12,10 +12,11 @@ editor: visual
 # library(admiral)
 library(tidyverse)
 ```
-
+<!-- adsl <- haven::read_sas("data/adsl.sas7bdat") %>%  -->
+<!--   mutate_if(is_character, na_if, "") -->
+Read data
 ```{r}
-adsl <- haven::read_sas("data/adsl.sas7bdat") %>% 
-  mutate_if(is_character, na_if, "")
+adsl <- read.csv("data/adsl.csv", header = TRUE)
 ```
 
 We can have a look at the data using many different commands / functions, e.g. the `head()` function which gives us the first six observations:
@@ -137,8 +138,7 @@ select(adsl,
 
 ### filter
 
-The `filter` function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame.
-This time, we first save the reduced (selected) data-frame and use that as the first argument to `filter`.
+The `filter` function allows us to look at a subset of observations. As input, the function requires a logical vector and (of course) a data-frame. This time, we first save the reduced (selected) data-frame and use that as the first argument to `filter`.
 
 ```{r}
 selected_data <- select(adsl, 
@@ -149,7 +149,6 @@ selected_data <- select(adsl,
                         SEX, 
                         RACE)
 ```
-
 
 The logical vector is generally created within the function call and can use any of the following logic operators:
 
@@ -211,6 +210,7 @@ adsl %>%
   select(STUDYID, USUBJID, ARM, AGE, SEX, RACE) %>% 
   filter(USUBJID %in% lookup_ids)
 ```
+
 Note that within the `filter` function (and in all major `dplyr` functions) R looks for the requested variables first within the supplied data-frame and afterwards in the global environment.
 
 ### arrange

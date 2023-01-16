@@ -1,0 +1,193 @@
+---
+title: "datatype and structure"
+author: "Sadchla"
+format: html
+editor: visual
+---
+
+# Coding basics
+
+## R as a calculator
+
+R can be used as a calculator following the order of operations using the basic arithmetic operators, although, the arithmetic equal sign (`=`) in the equivalent of `==`.
+
+```{r}
+# simple calculations 
+3*2
+(59 + 73 + 2) / 3
+
+# complex calculations
+pi/8
+
+```
+
+# store outputs
+
+An object can be created to assign the value of your operation to a specific variable name, which can be reused later in the R session. Using the `object_name <- value` naming convention, you can assign (`<-`) the value (`(59 + 73 + 2) / 3`) to an `object_name` simple_cal to look like `simple_cal <-(59 + 73 + 2) / 3` to store the evaluation of that calculation.
+
+```{r}
+
+x <- 1:10
+
+y <- 2*x
+
+simple_cal <-(59 + 73 + 2) / 3
+```
+
+
+# Load data into R
+
+Depending on the formats for the files containing your data, we can use different base R functions to read and load data into memory
+
+R has two native data formats, **Rdata** (sometimes call Rda) and **RDS**.
+
+**Rdata** can be selected R objects or a workspace, and **RDS** are single R object. R has base functions available to read the two native data formats, and some delimited files.
+
+```{r eval=FALSE}
+# saving rdata
+save(x, file = "data/intro_1.RData")
+# Save multiple objects
+save(x, y, file = "data/intro_2.RData")
+
+# Saving the entire workspake 
+save.image(file="intro_program")
+
+# We can follow the syntax for saving single Rdata object to save Rds files
+# saveRDS(object, file = "my_data.rds")
+
+
+# loading Rdata or Rda files 
+load(file = "data/intro_program.RData")
+
+# loading RDS
+# We can follow the syntax for read Rdata object to sread Rds files using the readRDS()
+
+
+# Comma delimited
+adsl_CSV <- read.csv("data/adsl.csv", header = TRUE)
+
+# Save CSV
+adsl_csv_save <- write.csv(adsl_CSV, "data/save_data/adsl.csv", row.names=TRUE)
+
+
+adsl_TAB_save <- write.table(adsl_CSV,"data/save_data/adsl.txt", append = FALSE, sep = "\t", dec = ".",
+            row.names = TRUE, col.names = TRUE)
+
+# Tab-delimited 
+adsl_TAB <- read.table("data/save_data/adsl.txt", header = TRUE, sep = "\t")
+```
+
+# R Packages
+
+R packages are a collection of reusable functions, compiled codes,documentation, sample data and tests. Some formats of data require the use of an R package in order to load that data into memory. Shareable R packages are typically stored in a repository such as the Comprehensive R Archive Network (CRAN), Bioconductor, and GitHub.
+
+# Installing an R packages
+
+```{r eval=FALSE}
+# From CRAN
+#install.packages("insert_package_name")
+# {haven} is used to import or export foreign statistical format files (SPSS, Stata, SAS)
+install.packages("haven")
+
+# {readxl}
+install.packages("readxl")
+
+
+# From Github
+remotes::install_github("pharmaverse/admiral", ref = "devel")
+```
+
+# Using R package, functions from an R package, and accessing help page
+
+Since an R packages are a collection of functions, you can choose to load the entire package within R memory or just the needed function from that package. Usually, the order you choose to load your package does not make a difference, unless you are loading two or more packages that has functions with the same name. If you are loading two or more packages with common function name, then the package loaded last will hide that function in the earlier packages, so in that case is important to note the order you choose to load the packages.
+
+```{r}
+# Read file using ::
+adsl_sas1 <- haven::read_sas("data/adsl.sas7bdat")
+
+# read file using library call  
+library(haven)
+adsl_sas2 <- read_sas("data/adsl.sas7bdat")
+
+
+# Reading Excel xls|xlsx files
+# read_excel reads both xls|xlsx files but read_xls and read_xlsx can also be used to read respective files
+
+# if NA are represented by another something other than blank then you can specified the NA value
+# within the read_excel() function
+```
+
+# Datatype
+
+R has different types of **Datatype**\
+\* Integer \* numeric \* Character \* Logical \* complex \* raw
+
+But we will focus on the top 4.
+
+```{r }
+set.seed(1234)
+
+type_int <- (1:5) 
+type_num <- rnorm(5)
+type_char <- "USUBJID"
+type_logl_1 <- TRUE
+type_logl_2 <- FALSE
+
+
+class(type_int)
+class(type_num)
+class(type_logl_1)
+class(type_logl_2)
+class(type_char)
+```
+
+# Date formats
+
+There are base R functions that can be used to format a date object similar to the Date9 formatted date variable from SAS. In addition, there are R packages available, such as {lubridate}, for more complex date/date time formatted objects.
+
+```{r}
+# using adsl_sas1 RFSTDTC
+class(adsl_sas1$RFSTDTC)
+
+# Convert the date from that adsl_sas1 into a date variable
+adsl_sas1$RFSTDTC <- as.Date(adsl_sas1$RFSTDTC)
+class(adsl_sas1$RFSTDTC)
+
+date9 <- lubridate::as_date(18757)
+lubridate::mdy(adsl_sas1$RFSTDTC)
+```
+
+# Structure
+
+Data structures are dimensional ways of organizing the data. There are different data structures in R, let's focus on **vectors** and **dataframe**
+
+**Vectors** are 1 dimensional collection of data that can contain one or more element of the same data type
+
+```{r }
+vect_1 <- 2
+vect_2 <- c(2, "USUBJID")
+
+class(vect_1)
+class(vect_2)
+
+# Saving vectors from a dataset to a specific variable
+usubjid <- adsl_sas1$USUBJID
+subjid <- adsl_sas1[,3]
+
+```
+
+**Dataframe** is similar to SAS data sets and are 2 dimensional collection of vectors. Dataframe can store vectors of different types but must be of the same length
+
+```{r}
+df <- data.frame(age = c(65, 20, 37,19,45),
+                 seq = (1:5),
+                 type_logl = c(TRUE,FALSE, TRUE, TRUE, FALSE),
+                 usubjid = c("001-940-9785","002-950-9726","003-940-9767","004-940-9795","005-940-9734")
+                 )
+
+# str() provides the data structure for each object in the dataframe
+str(df)
+
+# In addition to the data structure per variable, also get some descriptive statistics 
+summary(df)
+```

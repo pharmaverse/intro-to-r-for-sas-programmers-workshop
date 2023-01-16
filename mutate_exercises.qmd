@@ -1,0 +1,57 @@
+---
+title: "`mutate()` Exercises"
+author: "Thomas Neitmann"
+format: html
+editor: visual
+---
+
+## Setup
+
+```{r message=FALSE}
+library(dplyr)
+library(lubridate)
+dm <- readRDS("data/dm.rds")
+ae <- readRDS("data/ae.rds")
+```
+
+## Exercise 1
+
+A treatment emergent adverse event is defined as an adverse event whose start date is on or after the treatment start date (`TRTSDT`) and at the latest starts 7 days after the treatment end date (`TRTEDT`). Given this definition calculate `TRTEMFL`.
+
+*Hint*: Turn the `--DTC` variables into proper dates first using the `ymd()` function.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+ae %>% 
+  mutate(
+    ASTDT = ymd(AESTDTC),
+    AENDT = ymd(AEENDTC),
+    TRTEMFL = if_else(ASTDT >= TRTSDT & ASTDT <= TRTEDT + 7, "Y", NA_character_)
+  ) %>% 
+  select(USUBJID, ASTDT, AENDT, TRTSDT, TRTEDT, TRTEMFL)
+```
+
+## Exercise 2
+
+Create a new variable `REGION1` based upon `COUTRY` as shown in the table below.
+
+| Countries                           | Region        |
+|-------------------------------------|---------------|
+| Mexico, USA, Canada                 | North America |
+| Spain, Greece, Germany, Switzerland | Europe        |
+| China, Japan                        | Asia          |
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+dm %>% 
+  mutate(
+    REGION1 = case_when(
+      COUNTRY %in% c("Mexico", "USA", "Canada") ~ "North America",
+      COUNTRY %in% c("Spain", "Greece", "Germany", "Switzerland") ~ "Europe",
+      COUNTRY %in% c("China", "Japan") ~ "Asia"
+    )
+  ) %>% 
+  select(USUBJID, COUNTRY, REGION1)
+```

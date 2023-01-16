@@ -5,13 +5,6 @@ format: html
 editor: visual
 ---
 
-```{r}
-#| include: false
-#| eval: true
-
-#library(learnr)
-```
-
 ## Setup
 
 ```{r}

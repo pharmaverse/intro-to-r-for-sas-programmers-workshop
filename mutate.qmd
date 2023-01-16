@@ -1,0 +1,173 @@
+---
+title: "mutate"
+subtitle: "Creating New Columns Using `mutate()`"
+author: "Thomas"
+format: html
+editor: visual
+---
+
+```{r message=FALSE}
+library(dplyr)
+library(lubridate)
+dm <- readRDS("data/dm.rds")
+ae <- readRDS("data/ae.rds")
+```
+
+The equivalent of creating a new variables in SAS inside a `data` step is to use the `mutate()` function. In the simplest case a static value is assigned to the new column.
+
+```{r}
+adsl <- dm %>% mutate(DATASET = "ADSL")
+```
+
+This will set the value of the new variable `DATASET` to `"ADSL"` for all records.
+
+```{r}
+adsl %>% select(DATASET)
+```
+
+Note that new variables are always appended after existing columns such that `DATASET` is now the last column of `adsl`.
+
+```{r}
+colnames(adsl)
+```
+
+Assigning the value of an existing column to a new column is the same as in SAS. The new column name goes to the left of `=` and the existing column to the right.
+
+```{r}
+adsl <- adsl %>% mutate(TRT01P = ARM)
+adsl %>% select(ARM, TRT01P)
+```
+
+In most cases new variables are created by applying function on existing variables to somehow transform them.
+
+```{r}
+adsl <- adsl %>% mutate(RFSTDT = ymd(RFSTDTC))
+```
+
+Just like you can create multiple new variables inside a `data` step you can do so inside `mutate()`.
+
+```{r warning=FALSE}
+adae <- ae %>% mutate(
+  ASTDT = ymd(AESTDTC),
+  ASTDY = ASTDT - TRTSDT + 1
+)
+adae %>% select(AESTDTC, ASTDT, TRTSDT, ASTDY)
+```
+
+Just like in SAS you can use conditional logic to assign different values to a new variable depending on which value another variable has using `if_else()`.
+
+```{r}
+adae %>%
+  mutate(ASTDY = if_else(ASTDT <= TRTSDT, ASTDT - TRTSDT, ASTDT - TRTSDT + 1)) %>% 
+  select(USUBJID, TRTSDT, ASTDT, ASTDY)
+```
+
+At this point let's make a small excursion to cover how R handles missing values, i.e. `NA`, when using conditional logic. Unlike in SAS where missing numbers are the smallest possible values such that `. < 10` is true, in R any comparison involving `NA` returns `NA` as a result.
+
+```{r}
+NA < 9
+NA == 0
+```
+
+This is the same when using `if_else()`.
+
+```{r}
+adsl$AGE[1] <- NA
+dm %>% 
+  mutate(AGEGR = if_else(AGE >= 65, "Elderly", "Adult")) %>% 
+  select(USUBJID, AGE, AGEGR)
+  
+```
+
+To check whether a value is missing use the `is.na()` function.
+
+```{r}
+is.na(NA)
+is.na("NA")
+```
+
+Finally, it's noteworthy that is are actually different types on `NA`s in R. We'll make use of them next.
+
+| Type        | Example    | Missing Value   |
+|-------------|------------|-----------------|
+| `character` | `"Brazil"` | `NA_character_` |
+| `double`    | `2.51`     | `NA_real_`      |
+| `integer`   | `1L`       | `NA_integer_`   |
+| `logical`   | `FALSE`    | `NA`            |
+
+: Types of \`NA\` in R
+
+If the logic is more complex than a simple `if_else()` than use `case_when()` instead.
+
+```{r}
+adsl %>% 
+  mutate(
+    AGEGR1 = case_when(
+      AGE < 18 ~ "<18",
+      AGE < 45 ~ "<45",
+      AGE < 65 ~ "<65",
+      TRUE ~ ">=65"
+    ) 
+  ) %>% 
+  select(USUBJID, AGE, AGEGR1)
+```
+
+The final condition `TRUE` is the is a catch all term and must be used with some caution. Consider what happens for the `AGE` of the first subject whose value we set to `NA` above.
+
+```{r}
+adsl %>% 
+  mutate(
+    AGEGR1 = case_when(
+      AGE < 18 ~ "<18",
+      AGE < 45 ~ "<45",
+      AGE < 65 ~ "<65",
+      TRUE ~ ">=65"
+    ) 
+  ) %>% 
+  select(USUBJID, AGE, AGEGR1)
+```
+
+To mitigate this you should either explicitly handle missing values as a separate condition or be explicit for all cases. The former would look something like this.
+
+```{r}
+adsl %>% 
+  mutate(
+    AGEGR1 = case_when(
+      is.na(AGE) ~ NA_character_,
+      AGE < 18 ~ "<18",
+      AGE < 45 ~ "<45",
+      AGE < 65 ~ "<65",
+      TRUE ~ ">=65"
+    ) 
+  ) %>% 
+  select(USUBJID, AGE, AGEGR1)
+```
+
+And the latter like this.
+
+```{r}
+adsl %>% 
+  mutate(
+    AGEGR1 = case_when(
+      AGE < 18 ~ "<18",
+      AGE < 45 ~ "<45",
+      AGE < 65 ~ "<65",
+      AGE >= 65 ~ ">=65"
+    ) 
+  ) %>% 
+  select(USUBJID, AGE, AGEGR1)
+```
+
+Finally, note that when a value does not match any of the conditions given which may be the case when not using a final `TRUE` then it is assigned `NA`.
+
+```{r}
+adsl %>% 
+  mutate(
+    AGEGR1 = case_when(
+      AGE < 18 ~ "<18",
+      AGE < 45 ~ "<45",
+      AGE < 65 ~ "<65"
+    ) 
+  ) %>% 
+  select(USUBJID, AGE, AGEGR1)
+```
