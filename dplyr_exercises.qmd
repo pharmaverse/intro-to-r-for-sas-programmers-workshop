@@ -49,6 +49,8 @@ Load the `adsl` data-frame and select the following variables:
 adsl %>% 
   select(USUBJID, ARM, SEX, starts_with("AGE"), COUNTRY, EOSSTT)
 
+# we could also list all AGE variables separately.
+
 ```
 
 On the selected variables, include only patients in the placebo arm who are 66, 77, 88, or 99 years old.
@@ -56,10 +58,18 @@ On the selected variables, include only patients in the placebo arm who are 66, 
 ```{r}
 #| code-fold: true
 #| code-summary: "Show solution"
+
+# There are different ways to solve this. The best way to filter the AGE is to create a vector c(66, 77, 88, 99) and then use the %in% operator. The vector can be created in different ways, e.g.: 
+age_vec <- c(66, 77, 88, 99)
+# or 
+age_vec  <- 6:9 * 11
+# we can then use either the age_vec or the code that created the age_vec directly as a statement in the filter function:
+
+
 adsl %>% 
   select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE")) %>% 
   filter(ARM == "Placebo",
-         AGE %in% c(6:9*11))
+         AGE %in% age_vec)
 ```
 
 Further include the variable TRTSDTM (datetime of first exposure to treatment) and sort the previous data-frame according to this variable from most recent to least recent first exposure.
