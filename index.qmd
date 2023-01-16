@@ -23,7 +23,11 @@ files <- c(
   "adsl_1.RData", 
   "adsl_2.RData", 
   "ae.rds", 
-  "dm.rds"
+  "dm.rds", 
+  "ds.rds",
+  "ex.rds",
+  "suppdm.rds",
+  "suppds.rds"
   )
 
 # external files (with path)

@@ -1,5 +1,6 @@
 ---
 title: "tidyr"
+subtitle: "Transposing data using `tidyr`and Joins"
 author: "Zelos Zhu"
 format: html
 editor: visual
@@ -34,12 +35,9 @@ To get the desired shape of data, there are two useful functions from the `tidyr
 ### Setup
 
 ```{r, message = FALSE, warning = FALSE}
-library(admiral)
-library(admiral.test)
 library(dplyr)
 library(tidyr)
-
-suppdm <- admiral.test::admiral_suppdm %>%
+suppdm <- readRDS("data/suppdm.rds") %>%
   select(USUBJID, QNAM, QVAL)
 
 head(suppdm, 10)

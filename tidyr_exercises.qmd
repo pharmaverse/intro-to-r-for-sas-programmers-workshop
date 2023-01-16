@@ -9,16 +9,14 @@ editor: visual
 
 ```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
-library(admiral)
-library(admiral.test)
 library(dplyr)
 library(tidyr)
 
 # load data
-ex <- admiral_ex
-dm <- admiral_dm
-ds <- admiral_ds
-suppds <- admiral_suppds
+ex <- readRDS("data/ex.rds") 
+dm <- readRDS("data/dm.rds") 
+ds <- readRDS("data/ds.rds") 
+suppds <- readRDS("data/suppds.rds") 
 ```
 
 ## Pivoting with tidyr
