@@ -46,7 +46,7 @@ save(x, file = "data/intro_1.RData")
 save(x, y, file = "data/intro_2.RData")
 
 # Saving the entire workspake 
-save.image(file="intro_program")
+save.image(file="data/intro_program.RData")
 
 # We can follow the syntax for saving single Rdata object to save Rds files
 # saveRDS(object, file = "my_data.rds")
@@ -82,7 +82,7 @@ adsl_TAB <- read.table("data/save_data/adsl.txt", header = TRUE, sep = "\t")
 
 ## R Packages
 
-R packages are a collection of reusable functions, compiled codes,documentation, sample data and tests. Some formats of data require the use of an R package in order to load that data into memory. Shareable R packages are typically stored in a repository such as the Comprehensive R Archive Network (CRAN), Bioconductor, and GitHub.
+R packages are a collection of reusable functions, compiled codes, documentation, sample data and tests. Some formats of data require the use of an R package in order to load that data into memory. Share-able R packages are typically stored in a repository such as the Comprehensive R Archive Network (CRAN), Bioconductor, and GitHub.
 
 ## Installing R packages
 
