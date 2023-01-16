@@ -38,3 +38,13 @@ ae %>%
   group_by(ACTARM) %>% 
   summarise(n = n())
 ```
+
+## Exercise 3
+
+Find the lowest and highest `AGE` per treatment arm.
+
+```{r}
+dm %>% 
+  group_by(ARM) %>% 
+  summarise(youngest = min(AGE, na.rm = TRUE), oldest = max(AGE, na.rm = TRUE))
+```
