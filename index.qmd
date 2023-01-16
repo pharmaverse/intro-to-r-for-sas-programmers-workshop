@@ -1,6 +1,31 @@
 # About {.unnumbered}
 
 On this page you find the materials for the workshop *Introduction to R for SAS programmers*.
+The workshop provides an RStudio cloud workspace, so you don't need to have R and RStudio locally installed. 
+
+
+If you want to participate in this workshop using your local machine, you need to download the data first. 
+Executing the following chunk in R on your machine will create and populate a data folder in your current working directory. 
+If you work on the RStudio cloud instance provided by us via link, you do not need to run this chunk.  
+```{r}
+#| eval: false
+
+# set paths and data names
+path <- "https://github.com/pharmaverse/intro-to-r-for-sas-programmers-workshop/blob/main/data"
+local.path <- ("data")
+files <- c("adsl.RData", "adsl.csv", "adsl.sas7bdat", "adsl_1.RData", "adsl_2.RData", "ae.rds", "dm.rds")
+urls <- file.path(path, files)
+dest <- file.path(local.path, files)
+
+# create data folder in wd
+if (!file.exists(local.path)) {
+  dir.create(local.path)
+}
+
+# download files
+download.file(urls, destfile = dest)
+```
+
 
 [![Cheatsheet for the transition from SAS to R and vice versa.](sas-r.pdf)](https://posit.co/wp-content/uploads/2022/10/sas-r.pdf)
 

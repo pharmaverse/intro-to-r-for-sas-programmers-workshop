@@ -39,10 +39,10 @@ Load the `adsl` data-frame and select the following variables:
 ```{r}
 #| code-fold: true
 #| code-summary: "Show solution"
+# we use starts_with("AGE") because we want to include every AGE variable that is in the original data-frame, instead, we could also list all AGE variables separately.
 adsl %>% 
   select(USUBJID, ARM, SEX, starts_with("AGE"), COUNTRY, EOSSTT)
 
-# we could also list all AGE variables separately.
 
 ```
 
@@ -62,7 +62,7 @@ age_vec  <- 6:9 * 11
 adsl %>% 
   select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE")) %>% 
   filter(ARM == "Placebo",
-         AGE %in% age_vec)
+         AGE %in% c(66, 77, 88, 99))
 ```
 
 Further include the variable TRTSDTM (datetime of first exposure to treatment) and sort the previous data-frame according to this variable from most recent to least recent first exposure.
@@ -73,6 +73,6 @@ Further include the variable TRTSDTM (datetime of first exposure to treatment) a
 adsl %>% 
   select(USUBJID, SEX, ARM, EOSSTT, starts_with("AGE"), TRTSDTM) %>% 
   filter(ARM == "Placebo",
-         AGE %in% c(6:9*11)) %>% 
+         AGE %in% c(66, 77, 88, 99)) %>% 
   arrange(desc(TRTSDTM))
 ```
