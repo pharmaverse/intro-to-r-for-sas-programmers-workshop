@@ -1,5 +1,6 @@
 ---
-title: "Creating New Columns Using `mutate()`"
+title: "mutate"
+subtitle: "Creating New Columns Using `mutate()`"
 author: "Thomas"
 format: html
 editor: visual
