@@ -13,7 +13,9 @@ If you work on the RStudio cloud instance provided by us via link, you do not ne
 # set paths and data names
 external.path <- 
   "https://github.com/pharmaverse/intro-to-r-for-sas-programmers-workshop/blob/main/data"
+
 local.path <- ("data")
+subdir <- file.path(local.path, "save_data")
 files <- c(
   "adsl.RData", 
   "adsl.csv", 
@@ -25,17 +27,20 @@ files <- c(
   )
 
 # external files (with path)
-urls <- file.path(external.path, files)
+urls <- file.path(external.path, paste(files, "raw=true", sep = "?"))
 # local files (with path)
 dest <- file.path(local.path, files)
 
 # create data folder in wd
 if (!file.exists(local.path)) {
   dir.create(local.path)
+  # subdirectory
+  dir.create(subdir)
 }
 
-# download files
+# download files if needed
 download.file(urls, destfile = dest)
+  
 ```
 
 
