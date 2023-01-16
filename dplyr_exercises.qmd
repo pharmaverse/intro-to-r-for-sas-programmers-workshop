@@ -1,6 +1,6 @@
 ---
 title: "dplyr exercises"
-author: "Stefan"
+author: "Stefan Thoma"
 format: html
 editor: visual
 ---

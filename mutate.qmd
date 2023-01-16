@@ -38,13 +38,13 @@ adsl <- adsl %>% mutate(TRT01P = ARM)
 adsl %>% select(ARM, TRT01P)
 ```
 
-In most cases new variables are created by applying function on existing variables to somehow transform them.
+In most cases new variables are created by applying functions on existing variables to somehow transform them.
 
 ```{r}
 adsl <- adsl %>% mutate(RFSTDT = ymd(RFSTDTC))
 ```
 
-Just like you can create multiple new variables inside a `data` step you can do so inside `mutate()`.
+You can create multiple new variables inside `mutate()` similar to how you would do it inside a `data` step.
 
 ```{r warning=FALSE}
 adae <- ae %>% mutate(
@@ -73,7 +73,7 @@ This is the same when using `if_else()`.
 
 ```{r}
 adsl$AGE[1] <- NA
-dm %>% 
+adsl %>% 
   mutate(AGEGR = if_else(AGE >= 65, "Elderly", "Adult")) %>% 
   select(USUBJID, AGE, AGEGR)
   
@@ -112,20 +112,7 @@ adsl %>%
   select(USUBJID, AGE, AGEGR1)
 ```
 
-The final condition `TRUE` is the is a catch all term and must be used with some caution. Consider what happens for the `AGE` of the first subject whose value we set to `NA` above.
-
-```{r}
-adsl %>% 
-  mutate(
-    AGEGR1 = case_when(
-      AGE < 18 ~ "<18",
-      AGE < 45 ~ "<45",
-      AGE < 65 ~ "<65",
-      TRUE ~ ">=65"
-    ) 
-  ) %>% 
-  select(USUBJID, AGE, AGEGR1)
-```
+The final condition `TRUE` is the is a catch all term and must be used with some caution. Notice what happened to the `AGE` of the first subject whose value we set to `NA` above.
 
 To mitigate this you should either explicitly handle missing values as a separate condition or be explicit for all cases. The former would look something like this.
 

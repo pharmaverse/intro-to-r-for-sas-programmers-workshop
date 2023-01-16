@@ -1,0 +1,50 @@
+---
+title: "Summarizing Data Exercises"
+author: "Thomas Neitmann"
+format: html
+editor: visual
+---
+
+## Setup
+
+```{r message=FALSE}
+library(dplyr)
+dm <- readRDS("data/dm.rds")
+ae <- readRDS("data/ae.rds")
+```
+
+## Exercise 1
+
+Count the number of *overall* adverse events per subject and sort the output such that the subject with the highest overall number of adverse events appears first.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+ae %>% 
+  group_by(USUBJID) %>% 
+  summarise(n_ae = n()) %>% 
+  arrange(desc(n_ae))
+```
+
+## Exercise 2
+
+Count the overall number of *serious* adverse events per treatment arm (`ACTARM`).
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
+ae %>% 
+  filter(AESER == "Y") %>% 
+  group_by(ACTARM) %>% 
+  summarise(n = n())
+```
+
+## Exercise 3
+
+Find the lowest and highest `AGE` per treatment arm.
+
+```{r}
+dm %>% 
+  group_by(ARM) %>% 
+  summarise(youngest = min(AGE, na.rm = TRUE), oldest = max(AGE, na.rm = TRUE))
+```
