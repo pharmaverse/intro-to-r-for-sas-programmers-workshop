@@ -5,9 +5,9 @@ format: html
 editor: visual
 ---
 
-# Transposing Data
+## Transposing Data
 
-## Some Context
+### Some Context
 
 As we know, data can often be represented in several ways. Multiple observations of a variable can be organized by rows or by columns.
 
@@ -31,7 +31,7 @@ When observations are spread along a row as multiple columns, we refer to the da
 
 To get the desired shape of data, there are two useful functions from the `tidyr` package to make this transformation, aptly named: `pivot_longer()` and `pivot_wider()` . These can be seen as the R-equivalent of `proc transpose` in SAS.
 
-## Setup
+### Setup
 
 ```{r, message = FALSE, warning = FALSE}
 library(admiral)
@@ -77,7 +77,7 @@ suppdm_long
 
 Bonus Trick: The `names_to`/`values_to` function arguments can prove to be helpful as a renaming step during the data cleaning process too!
 
-# Relational Data (Joins)
+## Relational Data (Joins)
 
 When a pair of tables need to be joined together, we have a variety of functions that can achieve such a task:
 
