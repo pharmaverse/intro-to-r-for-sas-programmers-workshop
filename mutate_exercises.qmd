@@ -1,5 +1,5 @@
 ---
-title: "`mutate()` Exercises"
+title: "mutate exercises"
 author: "Thomas Neitmann"
 format: html
 editor: visual

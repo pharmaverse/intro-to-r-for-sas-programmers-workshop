@@ -1,19 +1,15 @@
 ---
-title: "datatype_structure_exercise"
+title: "datatype and structure exercise"
 format: html
 editor: visual
 ---
-
 
 # Exercise 1
 
 Install and load the following packages
 
-**{tidyverse}**
-**{admiral}**
-**{dplyr}**
-**{tidyr}**
-**{admiral.test}**
+**{tidyverse}** **{admiral}** **{dplyr}** **{tidyr}** **{admiral.test}**
+
 ```{r  eval=FALSE}
 #| code-fold: true
 #| code-summary: "Show solution"
@@ -28,9 +24,10 @@ library(dplyr)
 library(tidyr)
 ```
 
-
 # Exercise 2
-Import  `adsl.sas7bdat` as adsl
+
+Import `adsl.sas7bdat` as adsl
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show solution"

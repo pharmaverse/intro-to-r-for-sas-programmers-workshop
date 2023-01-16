@@ -1,5 +1,5 @@
 ---
-title: "Summarizing Data Exercises"
+title: "summarizing data exercises"
 author: "Thomas Neitmann"
 format: html
 editor: visual
@@ -44,6 +44,8 @@ ae %>%
 Find the lowest and highest `AGE` per treatment arm.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show solution"
 dm %>% 
   group_by(ARM) %>% 
   summarise(youngest = min(AGE, na.rm = TRUE), oldest = max(AGE, na.rm = TRUE))

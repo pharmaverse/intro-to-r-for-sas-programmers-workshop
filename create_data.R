@@ -16,6 +16,3 @@ all.equal(adsl.csv, admiral_adsl)
 all.equal(adsl, admiral_adsl)
 
 
-## some information got lost when writing and loading the adsl dataset. 
-## is the data/adsl.sas7bdat good enough for the workshop? Is there a 
-## better package to write and read sas files that you know?

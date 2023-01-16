@@ -4,23 +4,21 @@ author: "Stefan Thoma"
 format: html
 editor: visual
 ---
+The `tidyverse` is a collection of R packages designed for data science. It includes packages such as `ggplot2` for data visualization, `dplyr` for data manipulation, and `tidyr` for reshaping data. The `tidyverse` is built around the idea of "tidy data," which is a standardized way of organizing and structuring data for analysis. The packages in the `tidyverse` are designed to work together seamlessly, making it a popular choice for data scientists and analysts who use R.
+
+
 
 ## Setup
 
 ```{r}
-# remotes::install_github("https://github.com/pharmaverse/admiral")
-# library(admiral)
 library(tidyverse)
 ```
 
-<!-- adsl <- haven::read_sas("data/adsl.sas7bdat") %>%  -->
-
-<!--   mutate_if(is_character, na_if, "") -->
 
 Read data
 
 ```{r}
-adsl <- read.csv("data/adsl.csv", header = TRUE)
+adsl <- read_csv("data/adsl.csv")
 ```
 
 We can have a look at the data using many different commands / functions, e.g. the `head()` function which gives us the first six observations:
@@ -31,7 +29,8 @@ head(adsl)
 
 ## `dplyr`
 
-`dplyr` is a package which is part of the tidyverse. `dplyr` helps us handle data. In R, we generally work with data-sets. With `dplyr` we can easily select variables, filter specific rows, sort data-sets based on variable values and much more.
+`dplyr` is a package in the `tidyverse` that provides a set of functions for efficiently manipulating and cleaning data. 
+It is built around the idea of "verbs" that correspond to common data manipulation tasks, such as `select()` for selecting specific columns from a data frame, `filter()` for filtering rows based on certain conditions, `arrange()` for sorting data-frames and `group_by()` and `summarize()` for grouping and summarizing data by one or more variables. 
 
 `dplyr` is not strictly needed for any of that, everything can be done in base R. However, `dplyr` provides a framework to write readable code and a pipeline to work efficiently.
 
@@ -73,9 +72,8 @@ head(adsl)
 
 <!-- However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function. -->
 
-## Datawrangling
 
-There are various functions within `dplyr` for datawrangling which follow a consistent structure. The first input of the most used dplyr functions is the data-frame. Then follow arguments specifying the behaviour of the function. Compared to the base r syntax we do not have to write column / variable names in quotation marks; `dplyr` syntax lets us refer to columns within a data-frame without the need to always reference the dataframe of origin.
+There are various functions within `dplyr` for datawrangling which follow a consistent structure. The first input of the most used `dplyr` functions is the data-frame. Then follow arguments specifying the behaviour of the function. Compared to the base r syntax we do not have to write column / variable names in quotation marks; `dplyr` syntax lets us refer to columns within a data-frame without the need to always reference the data-frame of origin.
 
 ### select
 

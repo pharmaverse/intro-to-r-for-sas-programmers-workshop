@@ -1,5 +1,5 @@
 ---
-title: "Summarizing Data"
+title: "summarizing data"
 author: "Thomas Neitmann"
 format: html
 editor: visual

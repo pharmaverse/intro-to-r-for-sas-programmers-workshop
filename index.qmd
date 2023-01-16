@@ -11,10 +11,22 @@ If you work on the RStudio cloud instance provided by us via link, you do not ne
 #| eval: false
 
 # set paths and data names
-path <- "https://github.com/pharmaverse/intro-to-r-for-sas-programmers-workshop/blob/main/data"
+external.path <- 
+  "https://github.com/pharmaverse/intro-to-r-for-sas-programmers-workshop/blob/main/data"
 local.path <- ("data")
-files <- c("adsl.RData", "adsl.csv", "adsl.sas7bdat", "adsl_1.RData", "adsl_2.RData", "ae.rds", "dm.rds")
-urls <- file.path(path, files)
+files <- c(
+  "adsl.RData", 
+  "adsl.csv", 
+  "adsl.sas7bdat", 
+  "adsl_1.RData", 
+  "adsl_2.RData", 
+  "ae.rds", 
+  "dm.rds"
+  )
+
+# external files (with path)
+urls <- file.path(external.path, files)
+# local files (with path)
 dest <- file.path(local.path, files)
 
 # create data folder in wd
@@ -27,8 +39,13 @@ download.file(urls, destfile = dest)
 ```
 
 
-[![Cheatsheet for the transition from SAS to R and vice versa.](sas-r.pdf)](https://posit.co/wp-content/uploads/2022/10/sas-r.pdf)
+
+
+
+
 
 ## Further material
+
+<iframe src="https://posit.co/wp-content/uploads/2022/10/sas-r.pdf" title="sas to R cheat sheet" width="960" height="500"></iframe>
 
 You can't get enough? [Here is a resource to help transitioning from SAS to R](https://bayer-group.github.io/sas2r/).

@@ -12,8 +12,7 @@ library("tidyverse")
 
 
 # load data
-adsl <- haven::read_sas("data/adsl.sas7bdat") %>% 
-  mutate_if(is_character, na_if, "")
+adsl <- read_csv("data/adsl.csv")
 ```
 
 ## Data wrangling with dplyr
