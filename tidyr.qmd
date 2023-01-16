@@ -49,8 +49,10 @@ As we see here, in our `SUPPDM` domain, the data is currently in the "long" form
 
 ```{r}
 suppdm_wide <- suppdm %>% 
-  pivot_wider(names_from = "QNAM", # assign column names based on QNAM
-              values_from = "QVAL") # retrieve values from QVAL
+  pivot_wider(
+    names_from = "QNAM", # assign column names based on QNAM
+    values_from = "QVAL" # retrieve values from QVAL
+  )
 suppdm_wide
 ```
 
@@ -58,9 +60,11 @@ Voila! This "wide" dataset may prove useful for joins (to be discussed later). B
 
 ```{r}
 suppdm_long <- suppdm_wide %>% 
-  pivot_longer(cols = c("COMPLT16", "COMPLT24", "COMPLT8", "EFFICACY", "ITT", "SAFETY"), 
-               names_to = "QNAM",
-               values_to = "QVAL")
+  pivot_longer(
+    cols = c("COMPLT16", "COMPLT24", "COMPLT8", "EFFICACY", "ITT", "SAFETY"), 
+    names_to = "QNAM",
+    values_to = "QVAL"
+  )
 suppdm_long
 ```
 
@@ -68,10 +72,12 @@ As you can see, as we pivoted back, we didn't come up with an *exact* duplicate 
 
 ```{r}
 suppdm_long <- suppdm_wide %>% 
-  pivot_longer(cols = c("COMPLT16", "COMPLT24", "COMPLT8", "EFFICACY", "ITT", "SAFETY"), 
-               names_to = "flag",
-               values_to = "flag_value",
-               values_drop_na = TRUE)
+  pivot_longer(
+    cols = c("COMPLT16", "COMPLT24", "COMPLT8", "EFFICACY", "ITT", "SAFETY"), 
+    names_to = "flag",
+    values_to = "flag_value",
+    values_drop_na = TRUE
+  )
 suppdm_long
 ```
 
@@ -104,13 +110,17 @@ head(dm_suppdm)
 The join can also be completed with different column names as long as you define the join-key relationship, demonstrated below:
 
 ```{r}
-dummy1 <- data.frame(STUDYID = c("TRIALX", "TRIALX"),
-                     USUBJID = c("1001", "1002"),
-                     AGE = c(18, 22))
+dummy1 <- data.frame(
+  STUDYID = c("TRIALX", "TRIALX"),
+  USUBJID = c("1001", "1002"),
+  AGE = c(18, 22)
+)
 
-dummy2 <- data.frame(STUDYID = c("TRIALX", "TRIALX"),
-                     SUBJECT = c("1001", "1002"),
-                     SEX = c("M", "F"))
+dummy2 <- data.frame(
+  STUDYID = c("TRIALX", "TRIALX"),
+  SUBJECT = c("1001", "1002"),
+  SEX = c("M", "F")
+)
 
 dummy3 <- dummy1 %>% 
   left_join(dummy2, by = c("STUDYID" = "STUDYID", "USUBJID" = "SUBJECT"))

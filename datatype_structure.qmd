@@ -18,7 +18,6 @@ R can be used as a calculator following the order of operations using the basic 
 
 # complex calculations
 pi/8
-
 ```
 
 # store outputs
@@ -31,7 +30,7 @@ x <- 1:10
 
 y <- 2*x
 
-simple_cal <-(59 + 73 + 2) / 3
+simple_cal <- (59 + 73 + 2) / 3
 ```
 
 # Load data into R
@@ -69,8 +68,15 @@ adsl_CSV <- read.csv("data/adsl.csv", header = TRUE)
 adsl_csv_save <- write.csv(adsl_CSV, "data/save_data/adsl.csv", row.names=TRUE)
 
 
-adsl_TAB_save <- write.table(adsl_CSV,"data/save_data/adsl.txt", append = FALSE, sep = "\t", dec = ".",
-            row.names = TRUE, col.names = TRUE)
+adsl_TAB_save <- write.table(
+  adsl_CSV,
+  "data/save_data/adsl.txt",
+  append = FALSE,
+  sep = "\t",
+  dec = ".",
+  row.names = TRUE,
+  col.names = TRUE
+)
 
 # Tab-delimited 
 adsl_TAB <- read.table("data/save_data/adsl.txt", header = TRUE, sep = "\t")
@@ -171,18 +177,19 @@ class(vect_2)
 
 # Saving vectors from a dataset to a specific variable
 usubjid <- adsl_sas1$USUBJID
-subjid <- adsl_sas1[,3]
+subjid <- adsl_sas1[, 3]
 
 ```
 
 **Dataframe** is similar to SAS data sets and are 2 dimensional collection of vectors. Dataframe can store vectors of different types but must be of the same length
 
 ```{r}
-df <- data.frame(age = c(65, 20, 37,19,45),
-                 seq = (1:5),
-                 type_logl = c(TRUE,FALSE, TRUE, TRUE, FALSE),
-                 usubjid = c("001-940-9785","002-950-9726","003-940-9767","004-940-9795","005-940-9734")
-                 )
+df <- data.frame(
+  age = c(65, 20, 37,19,45),
+  seq = (1:5),
+  type_logl = c(TRUE,FALSE, TRUE, TRUE, FALSE),
+  usubjid = c("001-940-9785","002-950-9726","003-940-9767","004-940-9795","005-940-9734")
+)
 
 # str() provides the data structure for each object in the dataframe
 str(df)
