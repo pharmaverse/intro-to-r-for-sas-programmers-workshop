@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Stefan Thoma">
+<meta name="author" content="Thomas Neitmann">
 
-<title>Introduction to R for SAS programmers - 4&nbsp; dplyr exercises</title>
+<title>Introduction to R for SAS programmers - 7&nbsp; Summarizing Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,8 +94,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mutate.html" rel="next">
-<link href="./dplyr.html" rel="prev">
+<link href="./summarizing_data_exercises.html" rel="next">
+<link href="./mutate_exercises.html" rel="prev">
 <link href="./favicon-32x32.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing Data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -202,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
+  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
   </div>
 </li>
       </ul>
@@ -237,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summarizing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a>
+  <a href="./summarizing_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -272,21 +272,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">4.1</span>  Setup</a></li>
-  <li><a href="#data-wrangling-with-dplyr" id="toc-data-wrangling-with-dplyr" class="nav-link" data-scroll-target="#data-wrangling-with-dplyr"><span class="toc-section-number">4.2</span>  Data wrangling with dplyr</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing Data</span></h1>
 </div>
 
 
@@ -296,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Stefan Thoma </p>
+             <p>Thomas Neitmann </p>
           </div>
   </div>
     
@@ -306,113 +299,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="setup" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">4.1</span> Setup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
-✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-✔ readr   2.1.3      ✔ forcats 0.5.2 
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/dm.rds"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ae <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/ae.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">"data/adsl.sas7bdat"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is_character, na_if, <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="data-wrangling-with-dplyr" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="data-wrangling-with-dplyr"><span class="header-section-number">4.2</span> Data wrangling with dplyr</h2>
-<p>Load the <code>adsl</code> data-frame and select the following variables:</p>
-<ul>
-<li><p>USUBJID</p></li>
-<li><p>ARM</p></li>
-<li><p>SEX</p></li>
-<li><p>AGE</p></li>
-<li><p>AGEU</p></li>
-<li><p>AGEGR1</p></li>
-<li><p>COUNTRY</p></li>
-<li><p>EOSSTT</p></li>
-</ul>
+<p>While <code>mutate()</code> adds a new variable for all existing records to a dataset, <code>summarize()</code> aggregates one or more columns of a dataset thereby “collapsing” it. In the simplest case a single variable is aggregated using a summary function such as <code>mean()</code>.</p>
 <div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we use starts_with("AGE") because we want to include every AGE variable that is in the original data-frame, instead, we could also list all AGE variables separately.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, ARM, SEX, <span class="fu">starts_with</span>(<span class="st">"AGE"</span>), COUNTRY, EOSSTT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_age =</span> <span class="fu">mean</span>(AGE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 306 × 8
-   USUBJID     ARM                  SEX     AGE AGEU  AGEGR1 COUNTRY EOSSTT     
-   &lt;chr&gt;       &lt;chr&gt;                &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      
- 1 01-701-1015 Placebo              F        63 YEARS      2 USA     COMPLETED  
- 2 01-701-1023 Placebo              M        64 YEARS      2 USA     DISCONTINU…
- 3 01-701-1028 Xanomeline High Dose M        71 YEARS      3 USA     COMPLETED  
- 4 01-701-1033 Xanomeline Low Dose  M        74 YEARS      3 USA     DISCONTINU…
- 5 01-701-1034 Xanomeline High Dose F        77 YEARS      3 USA     COMPLETED  
- 6 01-701-1047 Placebo              F        85 YEARS      3 USA     DISCONTINU…
- 7 01-701-1057 Screen Failure       F        59 YEARS      2 USA     &lt;NA&gt;       
- 8 01-701-1097 Xanomeline Low Dose  M        68 YEARS      3 USA     COMPLETED  
- 9 01-701-1111 Xanomeline Low Dose  F        81 YEARS      3 USA     DISCONTINU…
-10 01-701-1115 Xanomeline Low Dose  M        84 YEARS      3 USA     DISCONTINU…
-# … with 296 more rows</code></pre>
+<pre><code># A tibble: 1 × 1
+  avg_age
+    &lt;dbl&gt;
+1    75.1</code></pre>
 </div>
 </div>
-<p>On the selected variables, include only patients in the placebo arm who are 66, 77, 88, or 99 years old.</p>
+<p>Just like you can create multiple variables inside a single call to <code>mutate()</code> you can aggregate multiple variables (or the same variable with multiple summary functions) inside <code>summarize()</code>.</p>
 <div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are different ways to solve this. The best way to filter the AGE is to create a vector c(66, 77, 88, 99) and then use the %in% operator. The vector can be created in different ways, e.g.: </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>age_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>age_vec  <span class="ot">&lt;-</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">9</span> <span class="sc">*</span> <span class="dv">11</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># we can then use either the age_vec or the code that created the age_vec directly as a statement in the filter function:</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, SEX, ARM, EOSSTT, <span class="fu">starts_with</span>(<span class="st">"AGE"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ARM <span class="sc">==</span> <span class="st">"Placebo"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>         AGE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_age =</span> <span class="fu">mean</span>(AGE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_age =</span> <span class="fu">median</span>(AGE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 7
-  USUBJID     SEX   ARM     EOSSTT         AGE AGEU  AGEGR1
-  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
-1 01-705-1059 F     Placebo DISCONTINUED    66 YEARS      3
-2 01-708-1171 F     Placebo COMPLETED       77 YEARS      3
-3 01-710-1368 F     Placebo COMPLETED       88 YEARS      3
-4 01-714-1035 F     Placebo COMPLETED       88 YEARS      3
-5 01-718-1139 M     Placebo COMPLETED       77 YEARS      3</code></pre>
+<pre><code># A tibble: 1 × 2
+  avg_age median_age
+    &lt;dbl&gt;      &lt;dbl&gt;
+1    75.1         77</code></pre>
 </div>
 </div>
-<p>Further include the variable TRTSDTM (datetime of first exposure to treatment) and sort the previous data-frame according to this variable from most recent to least recent first exposure.</p>
+<p>So far we aggregated only numeric variables. Another useful aggregation is counting the number of records.</p>
 <div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, SEX, ARM, EOSSTT, <span class="fu">starts_with</span>(<span class="st">"AGE"</span>), TRTSDTM) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ARM <span class="sc">==</span> <span class="st">"Placebo"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         AGE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(TRTSDTM))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">N =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 8
-  USUBJID     SEX   ARM     EOSSTT         AGE AGEU  AGEGR1 TRTSDTM            
-  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dttm&gt;             
-1 01-714-1035 F     Placebo COMPLETED       88 YEARS      3 2014-04-17 00:00:00
-2 01-710-1368 F     Placebo COMPLETED       88 YEARS      3 2013-10-23 00:00:00
-3 01-705-1059 F     Placebo DISCONTINUED    66 YEARS      3 2013-08-05 00:00:00
-4 01-718-1139 M     Placebo COMPLETED       77 YEARS      3 2013-05-19 00:00:00
-5 01-708-1171 F     Placebo COMPLETED       77 YEARS      3 2012-12-06 00:00:00</code></pre>
+<pre><code># A tibble: 1 × 1
+      N
+  &lt;int&gt;
+1   306</code></pre>
+</div>
+</div>
+<p>This becomes quite powerful when combining <code>summarize()</code> with <code>group_by()</code>. This should look rather familiar to you if you every aggregated data using <code>proc sql</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(COUNTRY) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  COUNTRY         n
+  &lt;chr&gt;       &lt;int&gt;
+1 Canada         86
+2 China          55
+3 Germany        49
+4 Greece         13
+5 Japan          12
+6 Mexico          5
+7 Spain           6
+8 Switzerland     9
+9 USA            71</code></pre>
+</div>
+</div>
+<p>Note that it is best practice to <code>ungroup()</code> the dataset after you aggregated it. Failing to do so can lead to some rather bogus error when continuing to manipulate the aggregated dataset, e.g.&nbsp;using <code>mutate()</code>.</p>
+<p><code>group_by()</code> and <code>summarize()</code> can be used with numeric variables as well. In addition one can group by more than a single variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ARM, COUNTRY) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_age =</span> <span class="fu">mean</span>(AGE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 3
+   ARM            COUNTRY     avg_age
+   &lt;chr&gt;          &lt;chr&gt;         &lt;dbl&gt;
+ 1 Placebo        Canada         79.2
+ 2 Placebo        China          70.5
+ 3 Placebo        Germany        75.2
+ 4 Placebo        Greece         75.8
+ 5 Placebo        Japan          70  
+ 6 Placebo        Mexico         65  
+ 7 Placebo        Spain          83  
+ 8 Placebo        Switzerland    69.3
+ 9 Placebo        USA            74.9
+10 Screen Failure Canada         75.1
+# … with 22 more rows</code></pre>
 </div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -515,13 +489,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./dplyr.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></span>
+      <a href="./mutate_exercises.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title"><code>mutate()</code> Exercises</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mutate.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">mutate</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summarizing_data_exercises.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing Data Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Stefan Thoma">
+<meta name="author" content="Thomas Neitmann">
 
-<title>Introduction to R for SAS programmers - 4&nbsp; dplyr exercises</title>
+<title>Introduction to R for SAS programmers - 8&nbsp; Summarizing Data Exercises</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,8 +94,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./mutate.html" rel="next">
-<link href="./dplyr.html" rel="prev">
+<link href="./tidyr.html" rel="next">
+<link href="./summarizing_data.html" rel="prev">
 <link href="./favicon-32x32.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing Data Exercises</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -202,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
+  <a href="./dplyr_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></a>
   </div>
 </li>
       </ul>
@@ -242,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summarizing_data_exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing Data Exercises</span></a>
+  <a href="./summarizing_data_exercises.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing Data Exercises</span></a>
   </div>
 </li>
       </ul>
@@ -276,8 +276,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">4.1</span>  Setup</a></li>
-  <li><a href="#data-wrangling-with-dplyr" id="toc-data-wrangling-with-dplyr" class="nav-link" data-scroll-target="#data-wrangling-with-dplyr"><span class="toc-section-number">4.2</span>  Data wrangling with dplyr</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="toc-section-number">8.1</span>  Setup</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="toc-section-number">8.2</span>  Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="toc-section-number">8.3</span>  Exercise 2</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="toc-section-number">8.4</span>  Exercise 3</a></li>
   </ul>
 </nav>
     </div>
@@ -286,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">dplyr exercises</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summarizing Data Exercises</span></h1>
 </div>
 
 
@@ -296,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Stefan Thoma </p>
+             <p>Thomas Neitmann </p>
           </div>
   </div>
     
@@ -306,108 +308,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="setup" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">4.1</span> Setup</h2>
+<section id="setup" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">8.1</span> Setup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
-✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-✔ readr   2.1.3      ✔ forcats 0.5.2 
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">"data/adsl.sas7bdat"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is_character, na_if, <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dm <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/dm.rds"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ae <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/ae.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="data-wrangling-with-dplyr" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="data-wrangling-with-dplyr"><span class="header-section-number">4.2</span> Data wrangling with dplyr</h2>
-<p>Load the <code>adsl</code> data-frame and select the following variables:</p>
-<ul>
-<li><p>USUBJID</p></li>
-<li><p>ARM</p></li>
-<li><p>SEX</p></li>
-<li><p>AGE</p></li>
-<li><p>AGEU</p></li>
-<li><p>AGEGR1</p></li>
-<li><p>COUNTRY</p></li>
-<li><p>EOSSTT</p></li>
-</ul>
+<section id="exercise-1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">8.2</span> Exercise 1</h2>
+<p>Count the number of <em>overall</em> adverse events per subject and sort the output such that the subject with the highest overall number of adverse events appears first.</p>
 <div class="cell">
 <details>
 <summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we use starts_with("AGE") because we want to include every AGE variable that is in the original data-frame, instead, we could also list all AGE variables separately.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, ARM, SEX, <span class="fu">starts_with</span>(<span class="st">"AGE"</span>), COUNTRY, EOSSTT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ae <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(USUBJID) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_ae =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_ae))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 306 × 8
-   USUBJID     ARM                  SEX     AGE AGEU  AGEGR1 COUNTRY EOSSTT     
-   &lt;chr&gt;       &lt;chr&gt;                &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      
- 1 01-701-1015 Placebo              F        63 YEARS      2 USA     COMPLETED  
- 2 01-701-1023 Placebo              M        64 YEARS      2 USA     DISCONTINU…
- 3 01-701-1028 Xanomeline High Dose M        71 YEARS      3 USA     COMPLETED  
- 4 01-701-1033 Xanomeline Low Dose  M        74 YEARS      3 USA     DISCONTINU…
- 5 01-701-1034 Xanomeline High Dose F        77 YEARS      3 USA     COMPLETED  
- 6 01-701-1047 Placebo              F        85 YEARS      3 USA     DISCONTINU…
- 7 01-701-1057 Screen Failure       F        59 YEARS      2 USA     &lt;NA&gt;       
- 8 01-701-1097 Xanomeline Low Dose  M        68 YEARS      3 USA     COMPLETED  
- 9 01-701-1111 Xanomeline Low Dose  F        81 YEARS      3 USA     DISCONTINU…
-10 01-701-1115 Xanomeline Low Dose  M        84 YEARS      3 USA     DISCONTINU…
-# … with 296 more rows</code></pre>
+<pre><code># A tibble: 225 × 2
+   USUBJID      n_ae
+   &lt;chr&gt;       &lt;int&gt;
+ 1 01-701-1302    23
+ 2 01-717-1004    19
+ 3 01-704-1266    16
+ 4 01-709-1029    16
+ 5 01-718-1427    16
+ 6 01-701-1192    15
+ 7 01-701-1275    15
+ 8 01-709-1309    15
+ 9 01-713-1179    15
+10 01-711-1143    14
+# … with 215 more rows</code></pre>
 </div>
 </div>
-<p>On the selected variables, include only patients in the placebo arm who are 66, 77, 88, or 99 years old.</p>
+</section>
+<section id="exercise-2" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">8.3</span> Exercise 2</h2>
+<p>Count the overall number of <em>serious</em> adverse events per treatment arm (<code>ACTARM</code>).</p>
 <div class="cell">
 <details>
 <summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are different ways to solve this. The best way to filter the AGE is to create a vector c(66, 77, 88, 99) and then use the %in% operator. The vector can be created in different ways, e.g.: </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>age_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>age_vec  <span class="ot">&lt;-</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">9</span> <span class="sc">*</span> <span class="dv">11</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># we can then use either the age_vec or the code that created the age_vec directly as a statement in the filter function:</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, SEX, ARM, EOSSTT, <span class="fu">starts_with</span>(<span class="st">"AGE"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ARM <span class="sc">==</span> <span class="st">"Placebo"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>         AGE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ae <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AESER <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ACTARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 7
-  USUBJID     SEX   ARM     EOSSTT         AGE AGEU  AGEGR1
-  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
-1 01-705-1059 F     Placebo DISCONTINUED    66 YEARS      3
-2 01-708-1171 F     Placebo COMPLETED       77 YEARS      3
-3 01-710-1368 F     Placebo COMPLETED       88 YEARS      3
-4 01-714-1035 F     Placebo COMPLETED       88 YEARS      3
-5 01-718-1139 M     Placebo COMPLETED       77 YEARS      3</code></pre>
+<pre><code># A tibble: 2 × 2
+  ACTARM                   n
+  &lt;chr&gt;                &lt;int&gt;
+1 Xanomeline High Dose     1
+2 Xanomeline Low Dose      2</code></pre>
 </div>
 </div>
-<p>Further include the variable TRTSDTM (datetime of first exposure to treatment) and sort the previous data-frame according to this variable from most recent to least recent first exposure.</p>
+</section>
+<section id="exercise-3" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">8.4</span> Exercise 3</h2>
+<p>Find the lowest and highest <code>AGE</code> per treatment arm.</p>
 <div class="cell">
-<details>
-<summary>Show solution</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>adsl <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(USUBJID, SEX, ARM, EOSSTT, <span class="fu">starts_with</span>(<span class="st">"AGE"</span>), TRTSDTM) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ARM <span class="sc">==</span> <span class="st">"Placebo"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         AGE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(TRTSDTM))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dm <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">youngest =</span> <span class="fu">min</span>(AGE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">oldest =</span> <span class="fu">max</span>(AGE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 8
-  USUBJID     SEX   ARM     EOSSTT         AGE AGEU  AGEGR1 TRTSDTM            
-  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dttm&gt;             
-1 01-714-1035 F     Placebo COMPLETED       88 YEARS      3 2014-04-17 00:00:00
-2 01-710-1368 F     Placebo COMPLETED       88 YEARS      3 2013-10-23 00:00:00
-3 01-705-1059 F     Placebo DISCONTINUED    66 YEARS      3 2013-08-05 00:00:00
-4 01-718-1139 M     Placebo COMPLETED       77 YEARS      3 2013-05-19 00:00:00
-5 01-708-1171 F     Placebo COMPLETED       77 YEARS      3 2012-12-06 00:00:00</code></pre>
+<pre><code># A tibble: 4 × 3
+  ARM                  youngest oldest
+  &lt;chr&gt;                   &lt;int&gt;  &lt;int&gt;
+1 Placebo                    52     89
+2 Screen Failure             50     89
+3 Xanomeline High Dose       56     88
+4 Xanomeline Low Dose        51     88</code></pre>
 </div>
 </div>
 
@@ -515,13 +487,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./dplyr.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">dplyr</span></span>
+      <a href="./summarizing_data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./mutate.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">mutate</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tidyr.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">tidyr</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
