@@ -88,7 +88,7 @@ And then select the desired variables:
 
 ```{r}
 # dplyr::select
-select(.data = adsl, 
+select(adsl, 
        STUDYID, 
        USUBJID, 
        ARM, 
@@ -133,8 +133,8 @@ We can use the `select()` function to reorder the variables in the data-frame. T
 
 ```{r}
 select(adsl,
-         ARM, 
-         USUBJID)
+       ARM, 
+       USUBJID)
 ```
 :::
 
