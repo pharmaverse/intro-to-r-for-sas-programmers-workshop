@@ -1,6 +1,6 @@
 ---
 title: "dplyr"
-author: "Stefan"
+author: "Stefan Thoma"
 format: html
 editor: visual
 ---
@@ -12,9 +12,13 @@ editor: visual
 # library(admiral)
 library(tidyverse)
 ```
+
 <!-- adsl <- haven::read_sas("data/adsl.sas7bdat") %>%  -->
+
 <!--   mutate_if(is_character, na_if, "") -->
+
 Read data
+
 ```{r}
 adsl <- read.csv("data/adsl.csv", header = TRUE)
 ```

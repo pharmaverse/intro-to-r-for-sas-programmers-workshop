@@ -1,6 +1,6 @@
 ---
 title: "datatype and structure"
-author: "Sadchla"
+author: "Sadchla Mascary"
 format: html
 editor: visual
 ---
@@ -23,7 +23,7 @@ pi/8
 
 # store outputs
 
-An object can be created to assign the value of your operation to a specific variable name, which can be reused later in the R session. Using the `object_name <- value` naming convention, you can assign (`<-`) the value (`(59 + 73 + 2) / 3`) to an `object_name` simple_cal to look like `simple_cal <-(59 + 73 + 2) / 3` to store the evaluation of that calculation.
+An object can be created to assign the value of your operation to a specific variable name, which can be reused later in the R session. Using the `object_name <- value` naming convention, you can assign (`<-`) the value (`(59 + 73 + 2) / 3`) to an `object_name` simple_cal to look like `simple_cal <- (59 + 73 + 2) / 3` to store the evaluation of that calculation.
 
 ```{r}
 
@@ -33,7 +33,6 @@ y <- 2*x
 
 simple_cal <-(59 + 73 + 2) / 3
 ```
-
 
 # Load data into R
 

@@ -1,6 +1,6 @@
 ---
 title: "tidyr"
-author: "Zelos"
+author: "Zelos Zhu"
 format: html
 editor: visual
 ---
