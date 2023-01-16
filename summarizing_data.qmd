@@ -1,0 +1,56 @@
+---
+title: "Summarizing Data"
+author: "Thomas Neitmann"
+format: html
+editor: visual
+---
+
+```{r message=FALSE}
+library(dplyr)
+dm <- readRDS("data/dm.rds")
+ae <- readRDS("data/ae.rds")
+```
+
+While `mutate()` adds a new variable for all existing records to a dataset, `summarize()` aggregates one or more columns of a dataset thereby "collapsing" it. In the simplest case a single variable is aggregated using a summary function such as `mean()`.
+
+```{r}
+dm %>% 
+  summarize(avg_age = mean(AGE, na.rm = TRUE))
+```
+
+Just like you can create multiple variables inside a single call to `mutate()` you can aggregate multiple variables (or the same variable with multiple summary functions) inside `summarize()`.
+
+```{r}
+dm %>% 
+  summarize(
+    avg_age = mean(AGE, na.rm = TRUE),
+    median_age = median(AGE, na.rm = TRUE)
+  )
+```
+
+So far we aggregated only numeric variables. Another useful aggregation is counting the number of records.
+
+```{r}
+dm %>% 
+  summarize(N = n())
+```
+
+This becomes quite powerful when combining `summarize()` with `group_by()`. This should look rather familiar to you if you every aggregated data using `proc sql`.
+
+```{r}
+dm %>% 
+  group_by(COUNTRY) %>% 
+  summarize(n = n()) %>% 
+  ungroup()
+```
+
+Note that it is best practice to `ungroup()` the dataset after you aggregated it. Failing to do so can lead to some rather bogus error when continuing to manipulate the aggregated dataset, e.g. using `mutate()`.
+
+`group_by()` and `summarize()` can be used with numeric variables as well. In addition one can group by more than a single variable.
+
+```{r message=FALSE}
+dm %>% 
+  group_by(ARM, COUNTRY) %>% 
+  summarize(avg_age = mean(AGE, na.rm = TRUE)) %>% 
+  ungroup()
+```
