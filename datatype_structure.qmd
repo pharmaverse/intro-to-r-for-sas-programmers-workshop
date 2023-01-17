@@ -7,7 +7,7 @@ editor: visual
 
 ## R as a calculator
 
-R can be used as a calculator following the order of operations using the basic arithmetic operators, although, the arithmetic equal sign (`=`) in the equivalent of `==`.
+R can be used as a calculator following the order of operations using the basic arithmetic operators, although, the arithmetic equal sign (`=`) is the equivalent of `==`.
 
 ```{r}
 # simple calculations 
@@ -157,7 +157,7 @@ adsl_sas1$RFSTDTC <- as.Date(adsl_sas1$RFSTDTC)
 class(adsl_sas1$RFSTDTC)
 
 date9 <- lubridate::as_date(18757)
-lubridate::mdy(adsl_sas1$RFSTDTC)
+lubridate::ymd(adsl_sas1$RFSTDTC)
 ```
 
 ## Structures
