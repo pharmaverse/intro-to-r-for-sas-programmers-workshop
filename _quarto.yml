@@ -8,7 +8,7 @@ execute:
 
 book:
   title: "Introduction to R for SAS programmers"
-  author: "Sadchla Mascary, Stefan Thoma,\n Zelos Zhu, Thomas Neitman"
+  author: "Sadchla Mascary, Stefan Thoma,\n Zelos Zhu, Thomas Neitmann"
   favicon: favicon-32x32.png
   date: today
   date-format: short
