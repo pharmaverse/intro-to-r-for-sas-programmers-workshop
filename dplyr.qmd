@@ -1,5 +1,5 @@
 ---
-title: "dplyr"
+title: "select, filter & arrange"
 author: "Stefan Thoma"
 format: html
 editor: visual
