@@ -102,15 +102,12 @@ remotes::install_github("pharmaverse/admiral", ref = "devel")
 
 ## Using R packages, functions from an R package, and accessing help pages
 
-Since an R packages are a collection of functions, you can choose to load the entire package within R memory or just the needed function from that package. Usually, the order you choose to load your package does not make a difference, unless you are loading two or more packages that has functions with the same name. If you are loading two or more packages with common function name, then the package loaded last will hide that function in the earlier packages, so in that case is important to note the order you choose to load the packages.
+Since an R packages are a collection of functions, you can choose to load the entire package within R memory or just the needed function from that package. Usually, the order you choose to load your package does not make a difference, unless you are loading two or more packages that has functions with the same name. If you are loading two or more packages with a common function name, then the package loaded last will hide that function in the earlier packages, so in that case it is important to note the order you choose to load the packages.
 
 ```{r}
-# Read file using ::
-adsl_sas1 <- haven::read_sas("data/adsl.sas7bdat")
-
 # read file using library call  
 library(haven)
-adsl_sas2 <- read_sas("data/adsl.sas7bdat")
+adsl_sas <- read_sas("data/adsl.sas7bdat")
 
 
 # Reading Excel xls|xlsx files
@@ -149,15 +146,18 @@ class(type_char)
 There are base R functions that can be used to format a date object similar to the Date9 formatted date variable from SAS. In addition, there are R packages available, such as {lubridate}, for more complex date/date time formatted objects.
 
 ```{r}
-# using adsl_sas1 RFSTDTC
-class(adsl_sas1$RFSTDTC)
+# using adsl_sas RFSTDTC
+class(adsl_sas$RFSTDTC)
 
-# Convert the date from that adsl_sas1 into a date variable
-adsl_sas1$RFSTDTC <- as.Date(adsl_sas1$RFSTDTC)
-class(adsl_sas1$RFSTDTC)
+# Convert the date from that adsl_sas into a date variable
+adsl_date <- as.Date(adsl_sas$RFSTDTC, "%m/%d/%Y")
+class(adsl_date)
 
-date9 <- lubridate::as_date(18757)
-lubridate::ymd(adsl_sas1$RFSTDTC)
+
+library(lubridate)
+date9 <- as_date(18757)
+adsl_sas$RFSTDTC <- ymd(adsl_sas$RFSTDTC)
+class(adsl_sas$RFSTDTC)
 ```
 
 ## Structures
@@ -174,8 +174,8 @@ class(vect_1)
 class(vect_2)
 
 # Saving vectors from a dataset to a specific variable
-usubjid <- adsl_sas1$USUBJID
-subjid <- adsl_sas1[, 3]
+usubjid <- adsl_sas$USUBJID
+subjid <- adsl_sas[, 3]
 
 ```
 

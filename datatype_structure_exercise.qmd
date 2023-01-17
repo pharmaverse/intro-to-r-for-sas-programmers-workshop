@@ -32,5 +32,6 @@ Import `adsl.sas7bdat` as adsl
 ```{r}
 #| code-fold: true
 #| code-summary: "Show solution"
-adsl <-  haven::read_sas("data/adsl.sas7bdat")
+library(haven)
+adsl <-  read_sas("data/adsl.sas7bdat")
 ```
