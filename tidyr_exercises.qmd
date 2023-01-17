@@ -21,15 +21,15 @@ suppds <- readRDS("data/suppds.rds")
 
 ## Pivoting with tidyr
 
-Load the `ex` data-frame from `admiral_ex`and select the following variables:
+Load the `ex` data-frame from `admiral_ex` and select the following variables:
 
--   USUBJID
+-   `USUBJID`
 
--   EXTRT
+-   `EXTRT`
 
--   VISIT
+-   `VISIT`
 
--   EXSTDTC
+-   `EXSTDTC`
 
 ```{r}
 #| code-fold: true
@@ -53,13 +53,13 @@ ex %>%
 
 ```
 
-Load the `dm` data-frame from `admiral_dm`and select the following variables:
+Load the `dm` data-frame from `admiral_dm` and select the following variables:
 
--   USUBJID
+-   `USUBJID`
 
--   RACE
+-   `RACE`
 
--   SEX
+-   `SEX`
 
 ```{r}
 #| code-fold: true
@@ -90,11 +90,11 @@ dm %>%
 
 Load the `ds` data-frame from `admiral_ds` and `suppds` data-frame from `admiral_suppds`. Prior to joining the two datasets together, we may need to do some cleaning of the data on `suppds`.
 
--   Filter IDVAR for "DSSEQ"
+-   Filter `IDVAR` for `"DSSEQ"`
 
--   Mutate IDVARVAL from type character to type numeric.
+-   Mutate `IDVARVAL` from type character to type numeric.
 
--   Select USUBJID IDVARVAL QNAM QLABEL QVAL
+-   Select `USUBJID IDVARVAL QNAM QLABEL QVAL`
 
 ```{r}
 #| code-fold: true

@@ -1,5 +1,6 @@
 ---
 title: "datatype and structure exercise"
+author: "Sadchla Mascary"
 format: html
 editor: visual
 ---

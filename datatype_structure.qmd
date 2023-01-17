@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-### R as a calculator
+## R as a calculator
 
 R can be used as a calculator following the order of operations using the basic arithmetic operators, although, the arithmetic equal sign (`=`) in the equivalent of `==`.
 

@@ -18,19 +18,19 @@ book:
       chapters: 
         - datatype_structure.qmd
         - datatype_structure_exercise.qmd 
-    - part: "dplyr"
+    - part: "data manipulation"
       chapters: 
         - dplyr.qmd
         - dplyr_exercises.qmd
-    - part: "mutate"
+    - part: "mutating data"
       chapters: 
         - mutate.qmd
         - mutate_exercises.qmd
-    - part: "summarize"
+    - part: "summarize data"
       chapters: 
         - summarizing_data.qmd
         - summarizing_data_exercises.qmd
-    - part: "tidyr"
+    - part: "reshaping data"
       chapters: 
         - tidyr.qmd
         - tidyr_exercises.qmd

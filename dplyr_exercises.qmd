@@ -7,7 +7,7 @@ editor: visual
 
 ## Setup
 
-```{r}
+```{r message=FALSE}
 library("tidyverse")
 
 

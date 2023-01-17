@@ -10,7 +10,7 @@ The `tidyverse` is a collection of R packages designed for data science. It incl
 
 ## Setup
 
-```{r}
+```{r message=FALSE}
 library(tidyverse)
 ```
 
@@ -34,43 +34,7 @@ It is built around the idea of "verbs" that correspond to common data manipulati
 
 `dplyr` is not strictly needed for any of that, everything can be done in base R. However, `dplyr` provides a framework to write readable code and a pipeline to work efficiently.
 
-<!-- The most crucial aspect of the `dplyr` pipeline is the pipe command (%\>%). The pipe operator (ctrl shift m) uses the previously computed object and forwards it to the next function as the first argument. It can also be specified to be some other argument of the next function. Let's show a simple example: -->
 
-<!-- ```{r} -->
-
-<!-- vec <- 1:10 -->
-
-<!-- # base: -->
-
-<!-- mean(vec) -->
-
-<!-- # dplyr: -->
-
-<!-- vec %>% mean() -->
-
-<!-- ``` -->
-
-<!-- The pipe operator let's us write nested function calls in a sequential way. For example, we can calculate the rounded variance of the centered vector `vec`: -->
-
-<!-- ```{r} -->
-
-<!-- # base: -->
-
-<!-- round(var(scale(vec, scale = FALSE)), digits = 2) -->
-
-<!-- # dplyr: -->
-
-<!-- vec %>%  -->
-
-<!--   scale(scale = FALSE) %>%  -->
-
-<!--   var() %>%  -->
-
-<!--   round(digits = 2) -->
-
-<!-- ``` -->
-
-<!-- However, most often, the pipe takes a dataset (or a modified dataset) and forwards it into the next function as the data argument of the next function. -->
 
 
 There are various functions within `dplyr` for datawrangling which follow a consistent structure. The first input of the most used `dplyr` functions is the data-frame. Then follow arguments specifying the behaviour of the function. Compared to the base r syntax we do not have to write column / variable names in quotation marks; `dplyr` syntax lets us refer to columns within a data-frame without the need to always reference the data-frame of origin.

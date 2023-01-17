@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">dplyr</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">data manipulation</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -208,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">mutate</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">mutating data</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -228,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">summarize</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">summarize data</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">tidyr</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">reshaping data</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -322,12 +322,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="pivoting-with-tidyr" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="pivoting-with-tidyr"><span class="header-section-number">10.2</span> Pivoting with tidyr</h2>
-<p>Load the <code>ex</code> data-frame from <code>admiral_ex</code>and select the following variables:</p>
+<p>Load the <code>ex</code> data-frame from <code>admiral_ex</code> and select the following variables:</p>
 <ul>
-<li><p>USUBJID</p></li>
-<li><p>EXTRT</p></li>
-<li><p>VISIT</p></li>
-<li><p>EXSTDTC</p></li>
+<li><p><code>USUBJID</code></p></li>
+<li><p><code>EXTRT</code></p></li>
+<li><p><code>VISIT</code></p></li>
+<li><p><code>EXSTDTC</code></p></li>
 </ul>
 <div class="cell">
 <details>
@@ -397,11 +397,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 # … with 244 more rows</code></pre>
 </div>
 </div>
-<p>Load the <code>dm</code> data-frame from <code>admiral_dm</code>and select the following variables:</p>
+<p>Load the <code>dm</code> data-frame from <code>admiral_dm</code> and select the following variables:</p>
 <ul>
-<li><p>USUBJID</p></li>
-<li><p>RACE</p></li>
-<li><p>SEX</p></li>
+<li><p><code>USUBJID</code></p></li>
+<li><p><code>RACE</code></p></li>
+<li><p><code>SEX</code></p></li>
 </ul>
 <div class="cell">
 <details>
@@ -479,9 +479,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="10.3" class="anchored" data-anchor-id="joining-using-dplyr"><span class="header-section-number">10.3</span> Joining using dplyr</h2>
 <p>Load the <code>ds</code> data-frame from <code>admiral_ds</code> and <code>suppds</code> data-frame from <code>admiral_suppds</code>. Prior to joining the two datasets together, we may need to do some cleaning of the data on <code>suppds</code>.</p>
 <ul>
-<li><p>Filter IDVAR for “DSSEQ”</p></li>
-<li><p>Mutate IDVARVAL from type character to type numeric.</p></li>
-<li><p>Select USUBJID IDVARVAL QNAM QLABEL QVAL</p></li>
+<li><p>Filter <code>IDVAR</code> for <code>"DSSEQ"</code></p></li>
+<li><p>Mutate <code>IDVARVAL</code> from type character to type numeric.</p></li>
+<li><p>Select <code>USUBJID IDVARVAL QNAM QLABEL QVAL</code></p></li>
 </ul>
 <div class="cell">
 <details>
