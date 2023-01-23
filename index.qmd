@@ -1,12 +1,13 @@
 # About {.unnumbered}
 
-On this page you find the materials for the workshop *Introduction to R for SAS programmers*.
-The workshop provides an RStudio cloud workspace, so you don't need to have R and RStudio locally installed. 
+On this page you find the materials used in the workshop *Introduction to R for SAS programmers* taking place on January 17th 2023.
+[The recording of the workshop is available on the CDISC website.](https://www.cdisc.org/events/webinar/pre-admiral-hackathon-workshop-introduction-r-sas-programmers) 
 
+The workshop provided an RStudio cloud work-space.
+To follow along on your local machine, create a new R-Project and paste / execute the following code-chunk in an R-Script or the R console. 
+Executing the following chunk in R on your machine will create and populate a data folder in your current working directory.
 
-If you want to participate in this workshop using your local machine, you need to download the data first. 
-Executing the following chunk in R on your machine will create and populate a data folder in your current working directory. 
-If you work on the RStudio cloud instance provided by us via link, you do not need to run this chunk.  
+<!-- If you work on the RStudio cloud instance provided by us via link, you do not need to run this chunk.   -->
 ```{r}
 #| eval: false
 
