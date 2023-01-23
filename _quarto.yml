@@ -4,7 +4,7 @@ project:
   output-dir: docs
   
 execute:
-  freeze: false
+  freeze: auto
 
 book:
   title: "Introduction to R for SAS programmers"
